@@ -1,4 +1,6 @@
+function [A,B,Afunction]=linearization(x10,x20,x30,x40,x50,x60,u10,u20)
 %constants
+g=9.81;
 l1=0.1995;
 l2=0.1743;
 ml=0.289;
@@ -68,14 +70,14 @@ f4prime_x6=diff(f4,x6);
 f4prime_u2=diff(f4,u2);
 
 %lin point
-x10=0;
-x20=0;
-x30=pi/4;
-x40=0;
-x50=u10/k1;
-x60=u20/k2;
-u10=10;
-u20=10;
+% x10=0;
+% x20=0;
+% x30=pi/4;
+% x40=0;
+% x50=u10/k1;
+% x60=u20/k2;
+% u10=10;
+% u20=10;
 
 %A matrix
 A=[0 1 0 0 0 0;
