@@ -93,7 +93,7 @@ A=Afunction(x20,x30,x40,x50,x60)
 
 
 %B matrix
-Bfunction=matlabFunction([0;0;0;0;f3prime_u1;f4prime_u2]);
+Bfunction=matlabFunction([0 0;0 0;0 0;0 0;f3prime_u1 0; 0 f4prime_u2]);
 B=Bfunction();
 C=[1 0 1 0 0 0];
 linSystem=ss(A,B,C,0)

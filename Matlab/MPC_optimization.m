@@ -25,5 +25,6 @@ settings.resid_tol = 1e-2;  % reduce the required residual tolerances, from 1e-4
 
 % solv
 [vars, status] = csolve(params, settings);
-u=vars.u;
+u=vars.u{1};
 x=vars.x;
+x3=x{1}(3);
