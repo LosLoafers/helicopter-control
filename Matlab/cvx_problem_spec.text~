@@ -1,3 +1,5 @@
+Denna fil är tänkt som CVXgen cod-mall. Så om vi vill göra om denna
+
 dimensions
   m = 2  # inputs.
   n = 6  # states.
@@ -12,8 +14,7 @@ parameters
   R (m,m) psd           # input cost.
   x[0] (n)              # initial state.
   u_max nonnegative     # amplitude limit.
-  u_min negative        #amplitude limit.
-  S nonnegative         # slew rate limit.
+  #S nonnegative         # slew rate limit.
 end
 
 variables
@@ -22,7 +23,7 @@ variables
 end
 
 minimize
-  sum[t=0..T](quad(x[t], Q) + quad(u[t], R)) + quad(x[T+1], Q_final)
+  sum[t=0..T](quad(x[t], Q) + quad(u[t], R)) ) #+ quad(x[T+1], Q_final)
 subject to
   x[t+1] == A*x[t] + B*u[t], t=0..T  # dynamics constraints.
   abs(u[t]) <= u_max, t=0..T  # maximum input box constraint.

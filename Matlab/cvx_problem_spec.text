@@ -1,3 +1,6 @@
+Denna fil är tänkt som CVXgen cod-mall. Så om vi vill göra om den genererade 
+"CVX solvern" så gör vi ändringarna här. 
+
 dimensions
   m = 2  # inputs.
   n = 6  # states.
