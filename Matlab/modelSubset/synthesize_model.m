@@ -67,6 +67,17 @@ D2 = 1.76e-7; % [Nms^/rad^2]
 T1 = 1.10;    % [s]
 T2 = 0.33;    % [s]
 
+%% test
+ddph = (cth^2*Jl - 2*h*cth*sth*m*lc + h^2*sth^2*m + Ja)\...
+       (2*cth*sth*dph*dth*Jl - 2*h*(sth^2-cth^2)*dph*dth*m*lc - ...
+	2*h^2*sth*cth*dph*dth*m + D1*w1*abs(w1)*cth + l2*cth*C2*w2*abs(w2));
+ddth = (Jl + h^2*m)\...
+       (-cth*sth*dph^2*Jl - h*(-sth^2+cth^2)*dph^2*m*lc - g*cth*m*lc ...
+	+ h^2*sth*cth*dph^2*m + m*g*h*sth + l1*C1*w1*abs(w1) + D2*w2*abs(w2));
+dw1 = -w1/T1 + u1/(k1*T1);
+dw2 = -w2/T2 + u2/(k2*T2);
+
+
 %% Compute point of linearization
 if isempty(phi0) && isempty(theta0)
     % Nominal value
@@ -105,6 +116,7 @@ C = [eye(2), zeros(2,4)];
 D = zeros(2,2);
 
 %% Discretize the continuous time system
-dt = 0.05;
+Ts = 0.05;
 sysCont = ss(A,B,C,D);
-sysDisc = c2d(sysCont, dt);
+sysDisc = c2d(sysCont, Ts);
+[A,B,C,D]=ssdata(sysDisc);

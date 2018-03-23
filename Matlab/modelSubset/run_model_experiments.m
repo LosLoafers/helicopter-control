@@ -7,7 +7,7 @@ clear; close all;
 
 % Linearize the model about an arbitrary point [phi, theta]
 phi0  = 0;
-theta0 = pi;
+theta0 = 0;
 % Linearize the lodel
 run('synthesize_model')
 
