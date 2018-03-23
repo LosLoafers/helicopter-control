@@ -1,17 +1,18 @@
 % Denna fil är mest tänkt som ett test av CVXgen 
 
 %någon random punkt
+u10=10;
+u20=10;
 x10=0;
 x20=0;
 x30=pi/4;
 x40=0;
 x50=u10/k1;
 x60=u20/k2;
-u10=10;
-u20=10;
+
 %samplingstid
 h=0.1;
-[A,B]=linearDescreteModelGen(x10,x20,x30,x40,x50,x60,u10,u20,h);
+[A,B]=linearDescreteModelGen(x10,x20,x30,x40,x50,x60,h);
 
 %setup opt problem
 params.A=A;
