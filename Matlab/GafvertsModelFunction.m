@@ -1,6 +1,8 @@
-function y=GafvertsModelFunction(x)
+function xdot=GafvertsModelFunction(x)
 % x=[u1,u2,phi, theta, dphi,dtheta,w1,w2]';
-% y=[phi, theta, dphi,dtheta,w1,w2]'
+% xdot=[phi, theta, dphi,dtheta,w1,w2]'
+
+%this function is 
 g=9.81;
 l1=0.1995;
 l2=0.1743;
@@ -61,4 +63,4 @@ f3=-1/T1*x5+1/(T1*k1)*u1;
 %define f4
 f4=-1/T2*x6+1/(T2*k2)*u2;
 
-y=[x3;x4;f1;f2;f3;f4];
+xdot=[x3;x4;f1;f2;f3;f4];

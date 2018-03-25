@@ -16,7 +16,7 @@ global LinearizationPoint_x;
 global LinearizationPoint_u;
 
 %calculate linearizatin in current point
-[Asystem,Bsystem,LinearizationPoint_x]=linearDescreteModelGen(x(1),x(2),Ts); 
+[Asystem,Bsystem,LinearizationPoint_x,LinearizationPoint_u]=linearDiscreteModelGen(x(1),x(2),Ts); 
 
 %setup opt problem
 params.x_0=x-LinearizationPoint_x;

@@ -1,4 +1,6 @@
-function y=GafvertsModelFunction(x)
+function [ X_new ] = f_k(X,U,Ts)
+
+
 % x=[u1,u2,phi, theta, dphi,dtheta,w1,w2]';
 % y=[phi, theta, dphi,dtheta,w1,w2]'
 g=9.81;
@@ -24,14 +26,14 @@ JL=ml/3*(l1^3+l2^3)/(l1+l2)+m1*l1^2+m2*l2^2+mw*lw^2;
 JA=0;
 lc=(ml*(l1-l2)+m1*l1-m2*l2-mw*lw)/m;
 
-u1=x(1);
-u2=x(2);
-x1=x(3);
-x2=x(4);
-x3=x(5);
-x4=x(6);
-x5=x(7);
-x6=x(8);
+u1=U(1);
+u2=U(2);
+x1=X(1);
+x2=X(2);
+x3=X(3);
+x4=X(4);
+x5=X(5);
+x6=X(6);
 
 
 %the folowing notation is used:
@@ -60,5 +62,7 @@ f3=-1/T1*x5+1/(T1*k1)*u1;
 
 %define f4
 f4=-1/T2*x6+1/(T2*k2)*u2;
+f=[x3;x4;f1;f2;f3;f4];
+X_new=X+Ts*f; %forward euler
+end
 
-y=[x3;x4;f1;f2;f3;f4];
