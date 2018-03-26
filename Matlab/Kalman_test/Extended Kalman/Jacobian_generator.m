@@ -1,3 +1,4 @@
+%does almost the same thing as linearization.m
 g=9.81;
 l1=0.1995;
 l2=0.1743;

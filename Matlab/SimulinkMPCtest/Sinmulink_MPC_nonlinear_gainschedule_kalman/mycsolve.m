@@ -7,7 +7,7 @@ function u=mycsolve(x)
 % the solver.
 global Asystem;
 global Bsystem;
-global Ts;
+global Ts_control;
 global umaxglobal;
 global Qglobal;
 global Rglobal;
@@ -15,7 +15,7 @@ global reference;
 global LinearizationPoint_x;
 global LinearizationPoint_u;
 
-[Asystem,Bsystem,LinearizationPoint_x]=linearDescreteModelGen(x(1),x(2),Ts);
+[Asystem,Bsystem,LinearizationPoint_x,LinearizationPoint_u]=linearDiscreteModelGen(x(1),x(2),Ts_control);
 %setup opt problem
 params.x_0=x-LinearizationPoint_x;
 params.A=Asystem;

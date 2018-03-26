@@ -1,4 +1,4 @@
-%% syntheize_model.m
+%% syntheize_model.m %DO NOT USE THIS WITH OUR SIMULATIONS. USE linearDiscreteModelGen.m
 % This script linearizes the ETH helicopter model in G?fverts report
 % about an arbitrary point [phi,theta] with zero velocities and
 % accelerations. The model is then parametrized using values in the same
