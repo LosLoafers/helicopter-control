@@ -1,4 +1,4 @@
-function [ X_new ] = f_k(X,U,Ts)
+function [ X_new ] = f_k(X,U,Ts,stop_angle)
 
 
 % x=[u1,u2,phi, theta, dphi,dtheta,w1,w2]';
@@ -65,8 +65,8 @@ f4=-1/T2*x6+1/(T2*k2)*(u2+X(8));
 f=[x3;x4;f1;f2;f3;f4;0;0];
 X_new=X+Ts*f; %forward euler
 
-if(X_new(2)<-pi/4 && X_new(4)<0) % if the pich angel stops. ie starting pos.
-    X_new(2)=-pi/4;
+if(X_new(2)<stop_angle && X_new(4)<0) % if the pich angel stops. ie starting pos.
+    X_new(2)=stop_angle;
     X_new(4)=0;
 end
 

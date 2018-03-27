@@ -1,4 +1,4 @@
-function [ F ] = Jacobi_fk(X,Ts)
+function [ F ] = Jacobi_fk(X,Ts,stop_angle)
 
 
 x2=X(2);
@@ -12,7 +12,7 @@ Jf=    @(x2,x3,x4,x5,x6)reshape([0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,-(x3.*x
 %jacobian of the continous f(x)
 
 F=eye(8)+Ts*Jf(x2,x3,x4,x5,x6); %Jacobian of the function f_k (the discrete f(x))
-if(X(2)<-pi/4&&X(4)<0)
+if(X(2)<stop_angle&&X(4)<0)
    F(8,8)=0;
    F(7,7)=0;
 else
