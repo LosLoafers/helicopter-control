@@ -14,7 +14,7 @@ global phi_min;
 global theta_min;
 global theta_max;
 Ts_control=0.05; % sample time
-Qglobal=diag([10 30 10 10 0 0 5 5]); %weight on states
+Qglobal=diag([10 30 10 10 0 0 10 10]); %weight on states
 Rglobal=diag([1 1])*100;     %weight on control signal
 umaxglobal=[1,1]'*10; %constraint on control
 phi_min=-pi;
@@ -29,7 +29,7 @@ phi0=0;
 k1=1e-2;
 k2=1.39e-2;
 LinearizationPoint_u=[LinearizationPoint_x(1)*k1,LinearizationPoint_x(2)*k2]'; %store lin. u
-reference=[0,1,0,0,0,0,0,0]'; %in origninal state space
+reference=[0,-pi/6,0,0,0,0,0,0]'; %in origninal state space
 
 %save the linearization in global vaariabels avalible to simulink function.
 
@@ -46,7 +46,7 @@ global Q;
 global R;
 global Ts_kalman;
 Ts_kalman=0.005;
-Q=diag([100 100 1 1 0.1 0.1 10 10]);
+Q=diag([100 100 1 1 0.1 0.1 100 100]);
 R=eye(2)*10;
 P_0=eye(8)*100;
 

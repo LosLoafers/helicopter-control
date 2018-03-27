@@ -15,8 +15,8 @@ H=C;
 %kalman update
 P_new=F*P*F'+Q; %predicted covariance
 y_hat=y-C*x_hat; %measurment residual
-S=H*P*H'+R;     %residual covariance
-K=P*H'/S;       %"optimal" kalman gain
+S=H*P_new*H'+R;     %residual covariance
+K=P_new*H'/S;       %"optimal" kalman gain
 x_new=f_k(x_hat,u,Ts_kalman)+K*y_hat;
 P_new=(eye(8)-K*H)*P_new;%updated covariance
 P_new=(P_new+P_new')./2;

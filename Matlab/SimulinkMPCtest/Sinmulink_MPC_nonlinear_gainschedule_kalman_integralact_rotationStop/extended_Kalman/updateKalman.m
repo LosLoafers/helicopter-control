@@ -3,10 +3,13 @@ global R;
 global Q;
 global Ts_kalman;
 
+stop_angle=-pi/4+0.1; %MUST be lager than the real stop value! Kalman will 
+%fail otherwise.
+
 
 %x_k+1=f(x_k)+vk
 %y_k=h(x_k)=C*x_k
-F=Jacobi_fk(x_hat,Ts_kalman); %jacobian of f evaluated at x_hat
+F=Jacobi_fk(x_hat,Ts_kalman,stop_angle); %jacobian of f evaluated at x_hat
  %Jacobian of h(x)
 
 C=[1 0 0 0 0 0 0 0;0 1 0 0 0 0 0 0];
@@ -15,8 +18,8 @@ H=C;
 %kalman update
 P_new=F*P*F'+Q; %predicted covariance
 ye=y-C*x_hat; %measurment residual
-S=H*P*H'+R;     %residual covariance
-K=P*H'/S;       %"optimal" kalman gain
-x_new=f_k(x_hat,u,Ts_kalman)+K*ye;
+S=H*P_new*H'+R;    %residual covariance
+K=P_new*H'/S;       %"optimal" kalman gain
+x_new=f_k(x_hat,u,Ts_kalman,stop_angle)+K*ye;
 P_new=(eye(8)-K*H)*P_new;%updated covariance
 P_new=(P_new+P_new')./2; %P must be symetric 
