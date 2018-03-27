@@ -1,0 +1,49 @@
+# Produced by CVXGEN, 2018-03-27 07:35:59 -0400.
+# CVXGEN is Copyright (C) 2006-2017 Jacob Mattingley, jem@cvxgen.com.
+# The code in this file is Copyright (C) 2006-2017 Jacob Mattingley.
+# CVXGEN, or solvers produced by CVXGEN, cannot be used for commercial
+# applications without prior written permission from Jacob Mattingley.
+
+# Filename: description.cvxgen.
+# Description: A description of the CVXGEN problem.
+
+
+dimensions
+  m = 2  # inputs.
+  n = 8  # states.
+  T = 15  # horizon.
+  Tx=7  #==> Tx*2-1=horizon. blocking factor=2
+  Tc=5 #control horizon
+
+end
+
+parameters
+  A (n,n)               # dynamics matrix.
+  B (n,m)               # transfer matrix.
+  Q (n,n) psd           # state cost.
+  #Q_final (n,n) psd     # final state cost.
+  R (m,m) psd           # input cost.
+  x[0] (n)              # initial state.
+  r (n)                 # reference.
+  u_max (m) nonnegative     # amplitude limit.
+  #S nonnegative         # slew rate limit.
+  phi_max (1)
+  phi_min (1)
+  theta_max (1)
+  theta_min (1)
+end
+
+variables
+  x[t] (n), t=1..T  # state.
+  u[t] (m), t=0..T  # input.
+end
+
+minimize
+  sum[t=1..Tx](quad(x[t*2-1]-r, Q)) + sum[t=1..Tc](quad(u[t]-u[t-1], R))
+subject to
+  x[t+1] == A*x[t] + B*u[t], t=0..T-1 # dynamics constraints.
+  abs(u[t]) < u_max, t=0..Tc  # maximum input box constraint.
+  phi_min <= x[t][1] <= phi_max,t=1..T
+  theta_min <= x[T][2] <= theta_max
+  #norminf(u[t+1] - u[t]) <= S, t=0..T-1  # slew rate constraint.
+end
