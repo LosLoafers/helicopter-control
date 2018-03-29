@@ -1,5 +1,5 @@
 server =  listen(2001)
-while true
+while
     socket = accept(server)
     println("Connection established.")
     while isopen(socket)
