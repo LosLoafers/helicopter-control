@@ -19,14 +19,26 @@
 %     x_11 == A*x_10 + B*u_10
 %     x_12 == A*x_11 + B*u_11
 %     x_13 == A*x_12 + B*u_12
-%     x_14 == A*x_13 + B*u_13
-%     x_15 == A*x_14 + B*u_14
-%     abs(u_0) <= u_max
-%     abs(u_1) <= u_max
-%     abs(u_2) <= u_max
-%     abs(u_3) <= u_max
-%     abs(u_4) <= u_max
-%     abs(u_5) <= u_max
+%     u_min <= u_0
+%     u_min <= u_1
+%     u_min <= u_2
+%     u_min <= u_3
+%     u_min <= u_4
+%     u_min <= u_5
+%     u_0 <= u_max
+%     u_1 <= u_max
+%     u_2 <= u_max
+%     u_3 <= u_max
+%     u_4 <= u_max
+%     u_5 <= u_max
+%     u_6 == u_5
+%     u_7 == u_6
+%     u_8 == u_7
+%     u_9 == u_8
+%     u_10 == u_9
+%     u_11 == u_10
+%     u_12 == u_11
+%     u_13 == u_12
 %     phi_min <= x_1(1)
 %     phi_min <= x_2(1)
 %     phi_min <= x_3(1)
@@ -40,8 +52,6 @@
 %     phi_min <= x_11(1)
 %     phi_min <= x_12(1)
 %     phi_min <= x_13(1)
-%     phi_min <= x_14(1)
-%     phi_min <= x_15(1)
 %     x_1(1) <= phi_max
 %     x_2(1) <= phi_max
 %     x_3(1) <= phi_max
@@ -55,38 +65,32 @@
 %     x_11(1) <= phi_max
 %     x_12(1) <= phi_max
 %     x_13(1) <= phi_max
-%     x_14(1) <= phi_max
-%     x_15(1) <= phi_max
-%     theta_min <= x_15(2)
-%     theta_min <= x_15(2)
-%     theta_min <= x_15(2)
-%     theta_min <= x_15(2)
-%     theta_min <= x_15(2)
-%     theta_min <= x_15(2)
-%     theta_min <= x_15(2)
-%     theta_min <= x_15(2)
-%     theta_min <= x_15(2)
-%     theta_min <= x_15(2)
-%     theta_min <= x_15(2)
-%     theta_min <= x_15(2)
-%     theta_min <= x_15(2)
-%     theta_min <= x_15(2)
-%     theta_min <= x_15(2)
-%     x_15(2) <= theta_max
-%     x_15(2) <= theta_max
-%     x_15(2) <= theta_max
-%     x_15(2) <= theta_max
-%     x_15(2) <= theta_max
-%     x_15(2) <= theta_max
-%     x_15(2) <= theta_max
-%     x_15(2) <= theta_max
-%     x_15(2) <= theta_max
-%     x_15(2) <= theta_max
-%     x_15(2) <= theta_max
-%     x_15(2) <= theta_max
-%     x_15(2) <= theta_max
-%     x_15(2) <= theta_max
-%     x_15(2) <= theta_max
+%     theta_min <= x_13(2)
+%     theta_min <= x_13(2)
+%     theta_min <= x_13(2)
+%     theta_min <= x_13(2)
+%     theta_min <= x_13(2)
+%     theta_min <= x_13(2)
+%     theta_min <= x_13(2)
+%     theta_min <= x_13(2)
+%     theta_min <= x_13(2)
+%     theta_min <= x_13(2)
+%     theta_min <= x_13(2)
+%     theta_min <= x_13(2)
+%     theta_min <= x_13(2)
+%     x_13(2) <= theta_max
+%     x_13(2) <= theta_max
+%     x_13(2) <= theta_max
+%     x_13(2) <= theta_max
+%     x_13(2) <= theta_max
+%     x_13(2) <= theta_max
+%     x_13(2) <= theta_max
+%     x_13(2) <= theta_max
+%     x_13(2) <= theta_max
+%     x_13(2) <= theta_max
+%     x_13(2) <= theta_max
+%     x_13(2) <= theta_max
+%     x_13(2) <= theta_max
 %
 % with variables
 %      u_0   2 x 1
@@ -103,7 +107,6 @@
 %     u_11   2 x 1
 %     u_12   2 x 1
 %     u_13   2 x 1
-%     u_14   2 x 1
 %      x_1   8 x 1
 %      x_2   8 x 1
 %      x_3   8 x 1
@@ -117,8 +120,6 @@
 %     x_11   8 x 1
 %     x_12   8 x 1
 %     x_13   8 x 1
-%     x_14   8 x 1
-%     x_15   8 x 1
 %
 % and parameters
 %        A   8 x 8
@@ -131,6 +132,7 @@
 % theta_max   1 x 1
 % theta_min   1 x 1
 %    u_max   2 x 1    positive
+%    u_min   2 x 1
 %      x_0   8 x 1
 %
 % Note:
@@ -142,7 +144,7 @@
 %
 % Specify params.A, ..., params.x_0, then run
 %   [vars, status] = csolve(params, settings)
-% Produced by CVXGEN, 2018-03-27 09:57:17 -0400.
+% Produced by CVXGEN, 2018-03-29 07:59:22 -0400.
 % CVXGEN is Copyright (C) 2006-2017 Jacob Mattingley, jem@cvxgen.com.
 % The code in this file is Copyright (C) 2006-2017 Jacob Mattingley.
 % CVXGEN, or solvers produced by CVXGEN, cannot be used for commercial
