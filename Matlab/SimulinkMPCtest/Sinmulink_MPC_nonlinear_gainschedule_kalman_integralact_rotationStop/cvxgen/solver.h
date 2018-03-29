@@ -1,4 +1,4 @@
-/* Produced by CVXGEN, 2018-03-27 09:57:37 -0400.  */
+/* Produced by CVXGEN, 2018-03-29 07:59:40 -0400.  */
 /* CVXGEN is Copyright (C) 2006-2017 Jacob Mattingley, jem@cvxgen.com. */
 /* The code in this file is Copyright (C) 2006-2017 Jacob Mattingley. */
 /* CVXGEN, or solvers produced by CVXGEN, cannot be used for commercial */
@@ -34,6 +34,7 @@ typedef struct Params_t {
   double A[64];
   double x_0[8];
   double B[16];
+  double u_min[2];
   double u_max[2];
   double phi_min[1];
   double phi_max[1];
@@ -54,17 +55,11 @@ typedef struct Vars_t {
   double *t_03; /* 2 rows. */
   double *t_04; /* 2 rows. */
   double *t_05; /* 2 rows. */
-  double *t_06; /* 2 rows. */
   double *u_0; /* 2 rows. */
-  double *t_07; /* 2 rows. */
   double *u_1; /* 2 rows. */
-  double *t_08; /* 2 rows. */
   double *u_2; /* 2 rows. */
-  double *t_09; /* 2 rows. */
   double *u_3; /* 2 rows. */
-  double *t_10; /* 2 rows. */
   double *u_4; /* 2 rows. */
-  double *t_11; /* 2 rows. */
   double *u_5; /* 2 rows. */
   double *x_2; /* 8 rows. */
   double *x_4; /* 8 rows. */
@@ -72,8 +67,6 @@ typedef struct Vars_t {
   double *x_8; /* 8 rows. */
   double *x_10; /* 8 rows. */
   double *x_12; /* 8 rows. */
-  double *x_14; /* 8 rows. */
-  double *x_15; /* 8 rows. */
   double *u_6; /* 2 rows. */
   double *u_7; /* 2 rows. */
   double *u_8; /* 2 rows. */
@@ -82,30 +75,29 @@ typedef struct Vars_t {
   double *u_11; /* 2 rows. */
   double *u_12; /* 2 rows. */
   double *u_13; /* 2 rows. */
-  double *u_14; /* 2 rows. */
-  double *x[16];
-  double *u[15];
+  double *x[14];
+  double *u[14];
 } Vars;
 typedef struct Workspace_t {
-  double h[96];
-  double s_inv[96];
-  double s_inv_z[96];
+  double h[76];
+  double s_inv[76];
+  double s_inv_z[76];
   double b[130];
-  double q[172];
-  double rhs[494];
-  double x[494];
+  double q[142];
+  double rhs[424];
+  double x[424];
   double *s;
   double *z;
   double *y;
-  double lhs_aff[494];
-  double lhs_cc[494];
-  double buffer[494];
-  double buffer2[494];
-  double KKT[1961];
-  double L[2959];
-  double d[494];
-  double v[494];
-  double d_inv[494];
+  double lhs_aff[424];
+  double lhs_cc[424];
+  double buffer[424];
+  double buffer2[424];
+  double KKT[1713];
+  double L[2858];
+  double d[424];
+  double v[424];
+  double d_inv[424];
   double gap;
   double optval;
   double ineq_resid_squared;

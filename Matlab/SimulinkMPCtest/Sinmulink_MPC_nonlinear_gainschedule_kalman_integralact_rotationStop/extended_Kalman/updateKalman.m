@@ -3,7 +3,7 @@ global R;
 global Q;
 global Ts_kalman;
 
-stop_angle=-pi/4+0.1; %MUST be lager than the real stop value! Kalman will 
+stop_angle=-pi/4; %MUST be lager than the real stop value! Kalman will 
 %fail otherwise.
 
 
