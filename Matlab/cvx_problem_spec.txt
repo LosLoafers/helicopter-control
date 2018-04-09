@@ -1,12 +1,12 @@
-Denna fil är tänkt som CVXgen cod-mall. Så om vi vill göra om den genererade 
-"CVX solvern" så gör vi ändringarna här. 
+Denna fil â€°r tâ€°nkt som CVXgen cod-mall. SÃ‚ om vi vill gË†ra om den genererade 
+"CVX solvern" sÃ‚ gË†r vi â€°ndringarna hâ€°r. 
 
 
 
 dimensions
   m = 2  # inputs.
   n = 8  # states.
-  T = 15  # horizon.
+  T = 13  # horizon.
   Tx=7  #==> Tx*2-1=horizon. blocking factor=2
   Tc=5 #control horizon
   
@@ -21,11 +21,13 @@ parameters
   x[0] (n)              # initial state.
   r (n)                 # reference.
   u_max (m) nonnegative     # amplitude limit.
+  u_min (2)
   #S nonnegative         # slew rate limit. 
   phi_max (1)
   phi_min (1)
   theta_max (1)
   theta_min (1)
+  
 end
 
 variables
@@ -37,9 +39,11 @@ minimize
   sum[t=1..Tx](quad(x[t*2-1]-r, Q)) + sum[t=1..Tc](quad(u[t]-u[t-1], R)) 
 subject to
   x[t+1] == A*x[t] + B*u[t], t=0..T-1 # dynamics constraints.
-  abs(u[t]) < u_max, t=0..Tc  # maximum input box constraint.
+  u_min < u[t] < u_max, t=0..Tc  # maximum input box constraint.
+  u[n]==u[n-1], n=Tc+1..T
   phi_min <= x[t][1] <= phi_max,t=1..T
   theta_min <= x[T][2] <= theta_max,t=1..T
+  
   #norminf(u[t+1] - u[t]) <= S, t=0..T-1  # slew rate constraint.
 end
-?
+â€‹
