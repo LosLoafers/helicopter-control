@@ -4,7 +4,7 @@
 %
 % solves the convex optimization problem
 %
-%   minimize(quad_form(x_1 - r, Q) + quad_form(x_3 - r, Q) + quad_form(x_5 - r, Q) + quad_form(x_7 - r, Q) + quad_form(x_9 - r, Q) + quad_form(x_11 - r, Q) + quad_form(x_13 - r, Q) + quad_form(u_1 - u_0, R) + quad_form(u_2 - u_1, R) + quad_form(u_3 - u_2, R) + quad_form(u_4 - u_3, R) + quad_form(u_5 - u_4, R))
+%   minimize(quad_form(x_0 - r, Q) + quad_form(x_1 - r, Q) + quad_form(x_2 - r, Q) + quad_form(x_3 - r, Q) + quad_form(x_4 - r, Q) + quad_form(x_5 - r, Q) + quad_form(x_6 - r, Q) + quad_form(x_7 - r, Q) + quad_form(x_8 - r, Q) + quad_form(x_9 - r, Q) + quad_form(x_10 - r, Q) + quad_form(x_11 - r, Q) + quad_form(x_12 - r, Q) + quad_form(x_13 - r, Q) + quad_form(x_14 - r, Q) + quad_form(x_15 - r, Q) + quad_form(x_16 - r, Q) + quad_form(x_17 - r, Q) + quad_form(x_18 - r, Q) + quad_form(x_19 - r, Q) + quad_form(u_1 - u_0, R) + quad_form(u_2 - u_1, R) + quad_form(u_3 - u_2, R) + quad_form(u_4 - u_3, R) + quad_form(u_5 - u_4, R) + quad_form(u_6 - u_5, R) + quad_form(u_7 - u_6, R) + quad_form(u_8 - u_7, R) + quad_form(u_9 - u_8, R) + quad_form(u_10 - u_9, R) + quad_form(u_11 - u_10, R) + quad_form(u_12 - u_11, R) + quad_form(u_13 - u_12, R) + quad_form(u_14 - u_13, R) + quad_form(u_15 - u_14, R) + quad_form(u_16 - u_15, R) + quad_form(u_17 - u_16, R) + quad_form(u_18 - u_17, R) + quad_form(u_19 - u_18, R) + quad_form(u_20 - u_19, R))
 %   subject to
 %     x_1 == A*x_0 + B*u_0
 %     x_2 == A*x_1 + B*u_1
@@ -19,26 +19,55 @@
 %     x_11 == A*x_10 + B*u_10
 %     x_12 == A*x_11 + B*u_11
 %     x_13 == A*x_12 + B*u_12
+%     x_14 == A*x_13 + B*u_13
+%     x_15 == A*x_14 + B*u_14
+%     x_16 == A*x_15 + B*u_15
+%     x_17 == A*x_16 + B*u_16
+%     x_18 == A*x_17 + B*u_17
+%     x_19 == A*x_18 + B*u_18
+%     x_20 == A*x_19 + B*u_19
 %     u_min <= u_0
 %     u_min <= u_1
 %     u_min <= u_2
 %     u_min <= u_3
 %     u_min <= u_4
 %     u_min <= u_5
+%     u_min <= u_6
+%     u_min <= u_7
+%     u_min <= u_8
+%     u_min <= u_9
+%     u_min <= u_10
+%     u_min <= u_11
+%     u_min <= u_12
+%     u_min <= u_13
+%     u_min <= u_14
+%     u_min <= u_15
+%     u_min <= u_16
+%     u_min <= u_17
+%     u_min <= u_18
+%     u_min <= u_19
+%     u_min <= u_20
 %     u_0 <= u_max
 %     u_1 <= u_max
 %     u_2 <= u_max
 %     u_3 <= u_max
 %     u_4 <= u_max
 %     u_5 <= u_max
-%     u_6 == u_5
-%     u_7 == u_6
-%     u_8 == u_7
-%     u_9 == u_8
-%     u_10 == u_9
-%     u_11 == u_10
-%     u_12 == u_11
-%     u_13 == u_12
+%     u_6 <= u_max
+%     u_7 <= u_max
+%     u_8 <= u_max
+%     u_9 <= u_max
+%     u_10 <= u_max
+%     u_11 <= u_max
+%     u_12 <= u_max
+%     u_13 <= u_max
+%     u_14 <= u_max
+%     u_15 <= u_max
+%     u_16 <= u_max
+%     u_17 <= u_max
+%     u_18 <= u_max
+%     u_19 <= u_max
+%     u_20 <= u_max
 %     phi_min <= x_1(1)
 %     phi_min <= x_2(1)
 %     phi_min <= x_3(1)
@@ -52,6 +81,13 @@
 %     phi_min <= x_11(1)
 %     phi_min <= x_12(1)
 %     phi_min <= x_13(1)
+%     phi_min <= x_14(1)
+%     phi_min <= x_15(1)
+%     phi_min <= x_16(1)
+%     phi_min <= x_17(1)
+%     phi_min <= x_18(1)
+%     phi_min <= x_19(1)
+%     phi_min <= x_20(1)
 %     x_1(1) <= phi_max
 %     x_2(1) <= phi_max
 %     x_3(1) <= phi_max
@@ -65,32 +101,53 @@
 %     x_11(1) <= phi_max
 %     x_12(1) <= phi_max
 %     x_13(1) <= phi_max
-%     theta_min <= x_13(2)
-%     theta_min <= x_13(2)
-%     theta_min <= x_13(2)
-%     theta_min <= x_13(2)
-%     theta_min <= x_13(2)
-%     theta_min <= x_13(2)
-%     theta_min <= x_13(2)
-%     theta_min <= x_13(2)
-%     theta_min <= x_13(2)
-%     theta_min <= x_13(2)
-%     theta_min <= x_13(2)
-%     theta_min <= x_13(2)
-%     theta_min <= x_13(2)
-%     x_13(2) <= theta_max
-%     x_13(2) <= theta_max
-%     x_13(2) <= theta_max
-%     x_13(2) <= theta_max
-%     x_13(2) <= theta_max
-%     x_13(2) <= theta_max
-%     x_13(2) <= theta_max
-%     x_13(2) <= theta_max
-%     x_13(2) <= theta_max
-%     x_13(2) <= theta_max
-%     x_13(2) <= theta_max
-%     x_13(2) <= theta_max
-%     x_13(2) <= theta_max
+%     x_14(1) <= phi_max
+%     x_15(1) <= phi_max
+%     x_16(1) <= phi_max
+%     x_17(1) <= phi_max
+%     x_18(1) <= phi_max
+%     x_19(1) <= phi_max
+%     x_20(1) <= phi_max
+%     theta_min <= x_20(2)
+%     theta_min <= x_20(2)
+%     theta_min <= x_20(2)
+%     theta_min <= x_20(2)
+%     theta_min <= x_20(2)
+%     theta_min <= x_20(2)
+%     theta_min <= x_20(2)
+%     theta_min <= x_20(2)
+%     theta_min <= x_20(2)
+%     theta_min <= x_20(2)
+%     theta_min <= x_20(2)
+%     theta_min <= x_20(2)
+%     theta_min <= x_20(2)
+%     theta_min <= x_20(2)
+%     theta_min <= x_20(2)
+%     theta_min <= x_20(2)
+%     theta_min <= x_20(2)
+%     theta_min <= x_20(2)
+%     theta_min <= x_20(2)
+%     theta_min <= x_20(2)
+%     x_20(2) <= theta_max
+%     x_20(2) <= theta_max
+%     x_20(2) <= theta_max
+%     x_20(2) <= theta_max
+%     x_20(2) <= theta_max
+%     x_20(2) <= theta_max
+%     x_20(2) <= theta_max
+%     x_20(2) <= theta_max
+%     x_20(2) <= theta_max
+%     x_20(2) <= theta_max
+%     x_20(2) <= theta_max
+%     x_20(2) <= theta_max
+%     x_20(2) <= theta_max
+%     x_20(2) <= theta_max
+%     x_20(2) <= theta_max
+%     x_20(2) <= theta_max
+%     x_20(2) <= theta_max
+%     x_20(2) <= theta_max
+%     x_20(2) <= theta_max
+%     x_20(2) <= theta_max
 %
 % with variables
 %      u_0   2 x 1
@@ -107,6 +164,13 @@
 %     u_11   2 x 1
 %     u_12   2 x 1
 %     u_13   2 x 1
+%     u_14   2 x 1
+%     u_15   2 x 1
+%     u_16   2 x 1
+%     u_17   2 x 1
+%     u_18   2 x 1
+%     u_19   2 x 1
+%     u_20   2 x 1
 %      x_1   8 x 1
 %      x_2   8 x 1
 %      x_3   8 x 1
@@ -120,6 +184,13 @@
 %     x_11   8 x 1
 %     x_12   8 x 1
 %     x_13   8 x 1
+%     x_14   8 x 1
+%     x_15   8 x 1
+%     x_16   8 x 1
+%     x_17   8 x 1
+%     x_18   8 x 1
+%     x_19   8 x 1
+%     x_20   8 x 1
 %
 % and parameters
 %        A   8 x 8
@@ -144,7 +215,7 @@
 %
 % Specify params.A, ..., params.x_0, then run
 %   [vars, status] = csolve(params, settings)
-% Produced by CVXGEN, 2018-03-29 07:59:22 -0400.
+% Produced by CVXGEN, 2018-04-11 10:19:21 -0400.
 % CVXGEN is Copyright (C) 2006-2017 Jacob Mattingley, jem@cvxgen.com.
 % The code in this file is Copyright (C) 2006-2017 Jacob Mattingley.
 % CVXGEN, or solvers produced by CVXGEN, cannot be used for commercial

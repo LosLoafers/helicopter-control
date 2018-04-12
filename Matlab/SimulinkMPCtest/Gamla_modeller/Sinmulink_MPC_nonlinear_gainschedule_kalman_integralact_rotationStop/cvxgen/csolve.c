@@ -1,4 +1,4 @@
-/* Produced by CVXGEN, 2018-03-29 07:59:22 -0400.  */
+/* Produced by CVXGEN, 2018-04-11 10:19:20 -0400.  */
 /* CVXGEN is Copyright (C) 2006-2017 Jacob Mattingley, jem@cvxgen.com. */
 /* The code in this file is Copyright (C) 2006-2017 Jacob Mattingley. */
 /* CVXGEN, or solvers produced by CVXGEN, cannot be used for commercial */
@@ -27,8 +27,8 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
   const char *status_names[] = {"optval", "gap", "steps", "converged"};
   mwSize dims1x1of1[1] = {1};
   mwSize dims[1];
-  const char *var_names[] = {"u_0", "u_1", "u_2", "u_3", "u_4", "u_5", "u_6", "u_7", "u_8", "u_9", "u_10", "u_11", "u_12", "u_13", "x_1", "x_2", "x_3", "x_4", "x_5", "x_6", "x_7", "x_8", "x_9", "x_10", "x_11", "x_12", "x_13", "u", "x"};
-  const int num_var_names = 29;
+  const char *var_names[] = {"u_0", "u_1", "u_2", "u_3", "u_4", "u_5", "u_6", "u_7", "u_8", "u_9", "u_10", "u_11", "u_12", "u_13", "u_14", "u_15", "u_16", "u_17", "u_18", "u_19", "u_20", "x_1", "x_2", "x_3", "x_4", "x_5", "x_6", "x_7", "x_8", "x_9", "x_10", "x_11", "x_12", "x_13", "x_14", "x_15", "x_16", "x_17", "x_18", "x_19", "x_20", "u", "x"};
+  const int num_var_names = 43;
   /* Avoid compiler warnings of unused variables by using a dummy assignment. */
   warned_diags = j = 0;
   extra_solves = 0;
@@ -424,6 +424,8 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
   if (prepare_for_c) {
     printf("settings.prepare_for_c == 1. thus, outputting for C.\n");
     for (i = 0; i < 8; i++)
+      printf("  params.x_0[%d] = %.6g;\n", i, params.x_0[i]);
+    for (i = 0; i < 8; i++)
       printf("  params.r[%d] = %.6g;\n", i, params.r[i]);
     for (i = 0; i < 64; i++)
       printf("  params.Q[%d] = %.6g;\n", i, params.Q[i]);
@@ -431,8 +433,6 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
       printf("  params.R[%d] = %.6g;\n", i, params.R[i]);
     for (i = 0; i < 64; i++)
       printf("  params.A[%d] = %.6g;\n", i, params.A[i]);
-    for (i = 0; i < 8; i++)
-      printf("  params.x_0[%d] = %.6g;\n", i, params.x_0[i]);
     for (i = 0; i < 16; i++)
       printf("  params.B[%d] = %.6g;\n", i, params.B[i]);
     for (i = 0; i < 2; i++)
@@ -471,10 +471,10 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
   /* Extract variable values. */
   plhs[0] = mxCreateStructArray(1, dims1x1of1, num_var_names, var_names);
   /* Create cell arrays for indexed variables. */
-  dims[0] = 13;
+  dims[0] = 20;
   cell = mxCreateCellArray(1, dims);
   mxSetField(plhs[0], 0, "u", cell);
-  dims[0] = 13;
+  dims[0] = 20;
   cell = mxCreateCellArray(1, dims);
   mxSetField(plhs[0], 0, "x", cell);
   xm = mxCreateDoubleMatrix(2, 1, mxREAL);
@@ -640,6 +640,90 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
     *dest++ = *src;
     *dest_cell++ = *src++;
   }
+  xm = mxCreateDoubleMatrix(2, 1, mxREAL);
+  mxSetField(plhs[0], 0, "u_14", xm);
+  xm_cell = mxCreateDoubleMatrix(2, 1, mxREAL);
+  cell = mxGetField(plhs[0], 0, "u");
+  mxSetCell(cell, 13, xm_cell);
+  dest = mxGetPr(xm);
+  dest_cell = mxGetPr(xm_cell);
+  src = vars.u_14;
+  for (i = 0; i < 2; i++) {
+    *dest++ = *src;
+    *dest_cell++ = *src++;
+  }
+  xm = mxCreateDoubleMatrix(2, 1, mxREAL);
+  mxSetField(plhs[0], 0, "u_15", xm);
+  xm_cell = mxCreateDoubleMatrix(2, 1, mxREAL);
+  cell = mxGetField(plhs[0], 0, "u");
+  mxSetCell(cell, 14, xm_cell);
+  dest = mxGetPr(xm);
+  dest_cell = mxGetPr(xm_cell);
+  src = vars.u_15;
+  for (i = 0; i < 2; i++) {
+    *dest++ = *src;
+    *dest_cell++ = *src++;
+  }
+  xm = mxCreateDoubleMatrix(2, 1, mxREAL);
+  mxSetField(plhs[0], 0, "u_16", xm);
+  xm_cell = mxCreateDoubleMatrix(2, 1, mxREAL);
+  cell = mxGetField(plhs[0], 0, "u");
+  mxSetCell(cell, 15, xm_cell);
+  dest = mxGetPr(xm);
+  dest_cell = mxGetPr(xm_cell);
+  src = vars.u_16;
+  for (i = 0; i < 2; i++) {
+    *dest++ = *src;
+    *dest_cell++ = *src++;
+  }
+  xm = mxCreateDoubleMatrix(2, 1, mxREAL);
+  mxSetField(plhs[0], 0, "u_17", xm);
+  xm_cell = mxCreateDoubleMatrix(2, 1, mxREAL);
+  cell = mxGetField(plhs[0], 0, "u");
+  mxSetCell(cell, 16, xm_cell);
+  dest = mxGetPr(xm);
+  dest_cell = mxGetPr(xm_cell);
+  src = vars.u_17;
+  for (i = 0; i < 2; i++) {
+    *dest++ = *src;
+    *dest_cell++ = *src++;
+  }
+  xm = mxCreateDoubleMatrix(2, 1, mxREAL);
+  mxSetField(plhs[0], 0, "u_18", xm);
+  xm_cell = mxCreateDoubleMatrix(2, 1, mxREAL);
+  cell = mxGetField(plhs[0], 0, "u");
+  mxSetCell(cell, 17, xm_cell);
+  dest = mxGetPr(xm);
+  dest_cell = mxGetPr(xm_cell);
+  src = vars.u_18;
+  for (i = 0; i < 2; i++) {
+    *dest++ = *src;
+    *dest_cell++ = *src++;
+  }
+  xm = mxCreateDoubleMatrix(2, 1, mxREAL);
+  mxSetField(plhs[0], 0, "u_19", xm);
+  xm_cell = mxCreateDoubleMatrix(2, 1, mxREAL);
+  cell = mxGetField(plhs[0], 0, "u");
+  mxSetCell(cell, 18, xm_cell);
+  dest = mxGetPr(xm);
+  dest_cell = mxGetPr(xm_cell);
+  src = vars.u_19;
+  for (i = 0; i < 2; i++) {
+    *dest++ = *src;
+    *dest_cell++ = *src++;
+  }
+  xm = mxCreateDoubleMatrix(2, 1, mxREAL);
+  mxSetField(plhs[0], 0, "u_20", xm);
+  xm_cell = mxCreateDoubleMatrix(2, 1, mxREAL);
+  cell = mxGetField(plhs[0], 0, "u");
+  mxSetCell(cell, 19, xm_cell);
+  dest = mxGetPr(xm);
+  dest_cell = mxGetPr(xm_cell);
+  src = vars.u_20;
+  for (i = 0; i < 2; i++) {
+    *dest++ = *src;
+    *dest_cell++ = *src++;
+  }
   xm = mxCreateDoubleMatrix(8, 1, mxREAL);
   mxSetField(plhs[0], 0, "x_1", xm);
   xm_cell = mxCreateDoubleMatrix(8, 1, mxREAL);
@@ -792,6 +876,90 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
   dest = mxGetPr(xm);
   dest_cell = mxGetPr(xm_cell);
   src = vars.x_13;
+  for (i = 0; i < 8; i++) {
+    *dest++ = *src;
+    *dest_cell++ = *src++;
+  }
+  xm = mxCreateDoubleMatrix(8, 1, mxREAL);
+  mxSetField(plhs[0], 0, "x_14", xm);
+  xm_cell = mxCreateDoubleMatrix(8, 1, mxREAL);
+  cell = mxGetField(plhs[0], 0, "x");
+  mxSetCell(cell, 13, xm_cell);
+  dest = mxGetPr(xm);
+  dest_cell = mxGetPr(xm_cell);
+  src = vars.x_14;
+  for (i = 0; i < 8; i++) {
+    *dest++ = *src;
+    *dest_cell++ = *src++;
+  }
+  xm = mxCreateDoubleMatrix(8, 1, mxREAL);
+  mxSetField(plhs[0], 0, "x_15", xm);
+  xm_cell = mxCreateDoubleMatrix(8, 1, mxREAL);
+  cell = mxGetField(plhs[0], 0, "x");
+  mxSetCell(cell, 14, xm_cell);
+  dest = mxGetPr(xm);
+  dest_cell = mxGetPr(xm_cell);
+  src = vars.x_15;
+  for (i = 0; i < 8; i++) {
+    *dest++ = *src;
+    *dest_cell++ = *src++;
+  }
+  xm = mxCreateDoubleMatrix(8, 1, mxREAL);
+  mxSetField(plhs[0], 0, "x_16", xm);
+  xm_cell = mxCreateDoubleMatrix(8, 1, mxREAL);
+  cell = mxGetField(plhs[0], 0, "x");
+  mxSetCell(cell, 15, xm_cell);
+  dest = mxGetPr(xm);
+  dest_cell = mxGetPr(xm_cell);
+  src = vars.x_16;
+  for (i = 0; i < 8; i++) {
+    *dest++ = *src;
+    *dest_cell++ = *src++;
+  }
+  xm = mxCreateDoubleMatrix(8, 1, mxREAL);
+  mxSetField(plhs[0], 0, "x_17", xm);
+  xm_cell = mxCreateDoubleMatrix(8, 1, mxREAL);
+  cell = mxGetField(plhs[0], 0, "x");
+  mxSetCell(cell, 16, xm_cell);
+  dest = mxGetPr(xm);
+  dest_cell = mxGetPr(xm_cell);
+  src = vars.x_17;
+  for (i = 0; i < 8; i++) {
+    *dest++ = *src;
+    *dest_cell++ = *src++;
+  }
+  xm = mxCreateDoubleMatrix(8, 1, mxREAL);
+  mxSetField(plhs[0], 0, "x_18", xm);
+  xm_cell = mxCreateDoubleMatrix(8, 1, mxREAL);
+  cell = mxGetField(plhs[0], 0, "x");
+  mxSetCell(cell, 17, xm_cell);
+  dest = mxGetPr(xm);
+  dest_cell = mxGetPr(xm_cell);
+  src = vars.x_18;
+  for (i = 0; i < 8; i++) {
+    *dest++ = *src;
+    *dest_cell++ = *src++;
+  }
+  xm = mxCreateDoubleMatrix(8, 1, mxREAL);
+  mxSetField(plhs[0], 0, "x_19", xm);
+  xm_cell = mxCreateDoubleMatrix(8, 1, mxREAL);
+  cell = mxGetField(plhs[0], 0, "x");
+  mxSetCell(cell, 18, xm_cell);
+  dest = mxGetPr(xm);
+  dest_cell = mxGetPr(xm_cell);
+  src = vars.x_19;
+  for (i = 0; i < 8; i++) {
+    *dest++ = *src;
+    *dest_cell++ = *src++;
+  }
+  xm = mxCreateDoubleMatrix(8, 1, mxREAL);
+  mxSetField(plhs[0], 0, "x_20", xm);
+  xm_cell = mxCreateDoubleMatrix(8, 1, mxREAL);
+  cell = mxGetField(plhs[0], 0, "x");
+  mxSetCell(cell, 19, xm_cell);
+  dest = mxGetPr(xm);
+  dest_cell = mxGetPr(xm_cell);
+  src = vars.x_20;
   for (i = 0; i < 8; i++) {
     *dest++ = *src;
     *dest_cell++ = *src++;

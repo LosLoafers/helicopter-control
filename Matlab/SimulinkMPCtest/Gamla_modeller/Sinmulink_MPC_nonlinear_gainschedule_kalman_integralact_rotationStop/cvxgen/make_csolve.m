@@ -1,4 +1,4 @@
-% Produced by CVXGEN, 2018-03-29 07:59:36 -0400.
+% Produced by CVXGEN, 2018-04-11 10:20:07 -0400.
 % CVXGEN is Copyright (C) 2006-2017 Jacob Mattingley, jem@cvxgen.com.
 % The code in this file is Copyright (C) 2006-2017 Jacob Mattingley.
 % CVXGEN, or solvers produced by CVXGEN, cannot be used for commercial
@@ -6,5 +6,5 @@
 
 % Filename: make_csolve.m.
 % Description: Calls mex to generate the csolve mex file.
-%mex -v csolve.c ldl.c matrix_support.c solver.c util.c
-mex csolve.c ldl.c matrix_support.c solver.c util.c
+mex -v csolve.c ldl.c matrix_support.c solver.c util.c
+%mex csolve.c ldl.c matrix_support.c solver.c util.c
