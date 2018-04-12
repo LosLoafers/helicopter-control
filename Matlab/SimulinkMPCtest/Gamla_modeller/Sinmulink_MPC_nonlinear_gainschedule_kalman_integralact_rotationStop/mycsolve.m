@@ -21,6 +21,12 @@ global theta_min;
 global theta_max;
 [Asystem,Bsystem,LinearizationPoint_x,LinearizationPoint_u]=linearDiscreteModelGen(x(1),x(2),Ts_control);
 %setup opt problem
+
+%blockingfactor 2 in x and u 
+% Bsystem=(Asystem*Bsystem+Bsystem);
+% Asystem=Asystem*Asystem;
+
+%parameters
 reference=[r;0;0;0;0;0;0];
 params.x_0=x-[LinearizationPoint_x;0;0];
 params.A=[Asystem,Bsystem;zeros(2,6),eye(2)];
@@ -38,7 +44,7 @@ params.theta_max=theta_max;
 
 % Create a new settings structure. Just some example
 % copied from the cvx homepage:
-settings.verbose = 1;  % disable output of solver progress.
+settings.verbose = 0;  % disable output of solver progress.
 % settings.max_iters = 10;  % reduce the maximum iteration count, from 25.
 % settings.eps = 0.1;  % reduce the required objective tolerance, from 1e-6.
 % settings.resid_tol = 1e-2;  % reduce the required residual tolerances, from 1e-4.

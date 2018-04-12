@@ -38,7 +38,7 @@ params.theta_max=theta_max;
 
 % Create a new settings structure. Just some example
 % copied from the cvx homepage:
-settings.verbose = 1;  % disable output of solver progress.
+settings.verbose = 0;  % disable output of solver progress.
 % settings.max_iters = 10;  % reduce the maximum iteration count, from 25.
 % settings.eps = 0.1;  % reduce the required objective tolerance, from 1e-6.
 % settings.resid_tol = 1e-2;  % reduce the required residual tolerances, from 1e-4.

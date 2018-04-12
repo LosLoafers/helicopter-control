@@ -14,7 +14,7 @@ global phi_min;
 global theta_min;
 global theta_max;
 Ts_control=0.05; % sample time
-Qglobal=diag([1 1 0.5 0.5 0 0 0 0]); %weight on states
+Qglobal=diag([1 1 1 1 0 0 0 0]); %weight on states
 Rglobal=diag([1 1])*1;     %weight on control signal
 umaxglobal=[1,0]'*10; %constraint on control
 uminglobal=[0,-1]'*10;

@@ -7,14 +7,8 @@ global Ts_kalman;
 %fail otherwise.
 
 
+   
 
-% if(y(2)<stop_angle_)
-%     x_temp=f_k(x_hat,u,Ts_kalman,stop_angle_);
-%     x_new=[y;x_temp(3:8)]
-%     P_new=P;
-% else
-%x_k+1=f(x_k)+vk
-%y_k=h(x_k)=C*x_k
 F=Jacobi_fk(x_hat,Ts_kalman,stop_angle); %jacobian of f evaluated at x_hat
  %Jacobian of h(x)
 
@@ -29,4 +23,7 @@ K=P_new*H'/S;       %"optimal" kalman gain
 x_new=f_k(x_hat,u,Ts_kalman,stop_angle)+K*ye;
 P_new=(eye(8)-K*H)*P_new;%updated covariance
 P_new=(P_new+P_new')./2; %P must be symetric 
-% end
+if(x_new<stop_angle)
+    x_new(8)=0;
+    x_new(7)=0;
+end
