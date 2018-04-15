@@ -1,11 +1,11 @@
 # This is the main program.
-
+print("HEJ")
 #Parameters
 
-# make server thread.
+# make server process.
 
 
-#make client thread.
+#make client process.
 
 
 

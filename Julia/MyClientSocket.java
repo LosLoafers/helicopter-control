@@ -14,14 +14,16 @@ public class MyClientSocket {
 
 	private void send() throws IOException, UnknownHostException{
 		String data;
+		String sendData;
 		scan = new Scanner(System.in);
 		int count = 1;
 		 	while(true) {
 			 	data = getData();
-				if(data.equals("close;")) {
+				if(data.equals("close")) {
 					break;
 				}
-				os.write(data.getBytes("UTF-8"));
+				sendData = data + ";";
+				os.write(sendData.getBytes("UTF-8"));
 				System.out.println(data + " was sent to server.");
 		 }
 		os.close();
@@ -31,7 +33,7 @@ public class MyClientSocket {
 	// Hämtar data från java app.
 	private String getData() {
 		System.out.println("Ready to receive data");
-		return scan.nextLine() + ";";
+		return scan.nextLine();
 	}
 
 	public static void main(String[] args) {
