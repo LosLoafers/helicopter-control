@@ -1,0 +1,36 @@
+double* mpc(double *x_0, double *r, double *Q, double *R, double *A, double *B, double *u_min, double *u_max, double phi_min, double phi_max, double theta_min, double theta_max) {
+	int i;	
+	set_defaults();
+	setup_indexing();
+	for (i = 0; i < 8; i++){
+		params.x_0[i] = x_0[i];	
+	}
+	for (i = 0; i < 8; i++){
+		params.r[i] = r[i];	
+	}
+	for (i = 0; i < 64; i++){
+		params.Q[i] = Q[i];	
+	}
+	for (i = 0; i < 4; i++){
+		params.R[i] = R[i];	
+	}
+	for (i = 0; i < 64; i++){
+		params.A[i] = A[i];	
+	}
+	for (i = 0; i < 16; i++){
+		params.B[i] = B[i];	
+	}
+	params.u_min[0] = u_min[0];
+	params.u_min[1] = u_min[1];
+	params.u_max[0] = u_max[0];
+	params.u_max[1] = u_max[1];
+	params.phi_min[0] = phi_min;
+	params.phi_max[0] = phi_max;
+	params.theta_min[0] = theta_min;
+	params.theta_max[0] = theta_max;
+	
+	settings.verbose = 0;
+	solve();
+	return vars.u_0;
+}
+
