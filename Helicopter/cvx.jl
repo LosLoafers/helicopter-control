@@ -1,7 +1,7 @@
 #------------MPC setup--------------------------------------------------------
 const Ts_control = 0.05 #sample time
-const Q = reshape(Diagonal([1;1;1;1;0;0;0;0]),1,:) #weight on states
-const R = reshape(Diagonal([1;1])*1,1,:)     #weight on control signal
+const Qr = [1 zeros(1,8) 1 zeros(1,8) 1 zeros(1,8) 1 zeros(1,36)]#reshape(Diagonal([1;1;1;1;0;0;0;0]),1,:) #weight on states
+const Rr = [1 0 0 1]     #weight on control signal
 
 #constraints
 const umaxglobal = [1 0]'*10 #constraint on control
@@ -14,25 +14,26 @@ const theta_max = pi/3.9
 #------------------------------------------------------------------------------
 
 function cvxsolve(x,r)
-    [Asystem,Bsystem,LinearizationPoint_x,LinearizationPoint_u]=linearDiscreteModelGen(x[1],x[2],Ts_control)
-
+    (Asystem,Bsystem,LinearizationPoint_x,LinearizationPoint_u)=linearDescreteModelGen(x[1],x[2],Ts_control)
 #setup opt problem
     reference=[r;0;0;0;0;0;0]
-    param_x_0=x-[LinearizationPoint_x;0;0]
-    param_A=reshape([Asystem,Bsystem;zeros(2,6),eye(2)],1,:)
-    param_B=reshape([Bsystem;zeros(2,2)],1,:)
+    x_0=x-[LinearizationPoint_x;0;0]
+    A=reshape([Asystem Bsystem;zeros(2,6) eye(2)],1,:)
+    B=reshape([Bsystem;zeros(2,2)],1,:)
     #param_Q=Qglobal
     #param_R=Rglobal
     param_u_max=(umaxglobal-LinearizationPoint_u)'
     param_u_min=(uminglobal-LinearizationPoint_u)'
     param_r=(reference-[LinearizationPoint_x;0;0])'
-    #param_phi_max=phi_max;
-    #param_phi_min=phi_min;
-    #param_theta_min=theta_min;
-    #param_theta_max=theta_max;
+    #param_phi_max=phi_max
+    #param_phi_min=phi_min
+    #param_theta_min=theta_min
+    #param_theta_max=theta_max
 
-    #call c function
-    #return u
+    u_pointer = ccall((:mpc,"./cvxgen/libcvx"),Ptr{Float64},(Ptr{Float64},Ptr{Float64},Ptr{Float64},Ptr{Float64},Ptr{Float64},Ptr{Float64},Ptr{Float64},Ptr{Float64},Float64,Float64,Float64,Float64),x_0,param_r,Qr,Rr,A,B,param_u_min,param_u_max,phi_min,phi_max,theta_min,theta_max)
+    u = [unsafe_load(u_pointer,1) unsafe_load(u_pointer,2)]
+    println(u)
+
 end
 #---------------------------------------------------------------------------
 
@@ -103,7 +104,7 @@ function linearDescreteModelGen(x1,x2,Ts)
     end
 
     Bdisc=Aintegral*Ts*B
-    linearizationPoint_x=[x1,x2,0,0,x5,x6]'
+    linearizationPoint_x=[x1 x2 0 0 x5 x6]'
     linearizationPoint_u=[x5*k1;x6*k2]
 
     Adisc, Bdisc, linearizationPoint_x, linearizationPoint_u
