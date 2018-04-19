@@ -25,15 +25,13 @@ function cvxsolve(x,r)
     param_u_max=(umaxglobal-LinearizationPoint_u)'
     param_u_min=(uminglobal-LinearizationPoint_u)'
     param_r=(reference-[LinearizationPoint_x;0;0])'
-    #param_phi_max=phi_max
-    #param_phi_min=phi_min
-    #param_theta_min=theta_min
-    #param_theta_max=theta_max
+    param_phi_max=phi_max-LinearizationPoint_x[1]
+    param_phi_min=phi_min-LinearizationPoint_x[1]
+    param_theta_min=theta_min-LinearizationPoint_x[2]
+    param_theta_max=theta_max-LinearizationPoint_x[2]
 
-    u_pointer = ccall((:mpc,"./cvxgen/libcvx"),Ptr{Float64},(Ptr{Float64},Ptr{Float64},Ptr{Float64},Ptr{Float64},Ptr{Float64},Ptr{Float64},Ptr{Float64},Ptr{Float64},Float64,Float64,Float64,Float64),x_0,param_r,Qr,Rr,A,B,param_u_min,param_u_max,phi_min,phi_max,theta_min,theta_max)
+    u_pointer = ccall((:mpc,"./cvxgen/libcvx"),Ptr{Float64},(Ptr{Float64},Ptr{Float64},Ptr{Float64},Ptr{Float64},Ptr{Float64},Ptr{Float64},Ptr{Float64},Ptr{Float64},Float64,Float64,Float64,Float64),x_0,param_r,Qr,Rr,A,B,param_u_min,param_u_max,param_phi_min,param_phi_max,param_theta_min,param_theta_max)
     u = [unsafe_load(u_pointer,1) unsafe_load(u_pointer,2)]
-    println(u)
-
 end
 #---------------------------------------------------------------------------
 
