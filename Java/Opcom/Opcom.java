@@ -9,16 +9,16 @@ import java.util.*;
 import se.lth.control.realtime.*;
 
 
-class PlotData implements Cloneable { 
-    double ref, y; 
-    double x; // holds the current time 
-    
-    public Object clone() { 
-        try { 
-	    return super.clone(); 
-        } catch (Exception e) {return null;} 
-    } 
-} 
+class PlotData implements Cloneable {
+    double ref, y;
+    double x; // holds the current time
+
+    public Object clone() {
+        try {
+	    return super.clone();
+        } catch (Exception e) {return null;}
+    }
+}
 
 
 class Reader extends Thread {
@@ -52,7 +52,7 @@ class Reader extends Thread {
 				ctrlChan = new AnalogIn(2);
 		  } catch (Exception e) {
 				System.out.println(e);
-		  } 
+		  }
 
 		  setPriority(7);
 
@@ -63,14 +63,14 @@ class Reader extends Thread {
 					 ctrl = ctrlChan.get();
 				} catch (Exception e) {
 					 System.out.println(e);
-				} 
+				}
 
 				pd = new PlotData();
 				pd.y = vel;
 				pd.ref = pos;
 				pd.x = realTime;
 				opcom.putMeasurementDataPoint(pd);
-	    
+
 				dp = new DoublePoint(realTime,ctrl);
 				opcom.putControlDataPoint(dp);
 
@@ -94,19 +94,19 @@ class Reader extends Thread {
     /** Called by Opcom when the Stop button is pressed. */
     public synchronized void shutDown() {
 		  stopThread();
-    } 
+    }
 
 }
 
 
-/** Class that creates and maintains a GUI for the Ball and Beam process. 
+/** Class that creates and maintains a GUI for the Ball and Beam process.
 	 Uses two internal threads to update plotters */
 
-public class Opcom {    
+public class Opcom {
 
     private PlotterPanel measurementPlotter; // has internal thread
     private PlotterPanel controlPlotter; // has internal thread
-    
+
     // Declaration of main frame.
     private JFrame frame;
 
@@ -117,8 +117,8 @@ public class Opcom {
     private int divTicks = 5;    // Number of ticks on time axis
     private int divGrid = 5;     // Number of grids on time axis
 
-    private boolean hChanged = false; 
-       
+    private boolean hChanged = false;
+
     /** Constructor. Creates the plotter panels. */
     public Opcom() {
 		  measurementPlotter = new PlotterPanel(2, 4); // Two channels
@@ -141,7 +141,7 @@ public class Opcom {
     public void initializeGUI() {
 		  // Create main frame.
 		  frame = new JFrame("DC Servo GUI");
-	
+
 		  // Create a panel for the two plotters.
 		  plotterPanel = new BoxPanel(BoxPanel.VERTICAL);
 		  // Create plot components and axes, add to plotterPanel.
@@ -154,9 +154,9 @@ public class Opcom {
 		  controlPlotter.setXAxis(range, divTicks, divGrid);
 		  controlPlotter.setTitle("Control (V)");
 		  plotterPanel.add(controlPlotter);
-	
+
 		  frame.add(plotterPanel);
-	
+
 		  // WindowListener that exits the system if the main window is closed.
 		  frame.addWindowListener(new WindowAdapter() {
 					 public void windowClosing(WindowEvent e) {
@@ -176,7 +176,7 @@ public class Opcom {
 		  Dimension sd = Toolkit.getDefaultToolkit().getScreenSize();
 		  Dimension fd = frame.getSize();
 		  frame.setLocation((sd.width-fd.width)/2, (sd.height-fd.height)/2);
-	
+
 		  // Make the window visible.
 		  frame.setVisible(true);
     }
@@ -187,14 +187,14 @@ public class Opcom {
 		  double y = dp.y;
 		  controlPlotter.putData(x, y);
     }
-    
+
     /** Called by Reader to put a measurement data point in the buffer. */
     public synchronized void putMeasurementDataPoint(PlotData pd) {
 		  double x = pd.x;
 		  double ref = pd.ref;
 		  double y = pd.y;
 		  measurementPlotter.putData(x, ref, y);
-    }    
+    }
 
 	 public static void main(String[] argv) {
 		  Opcom opcom = new Opcom();
