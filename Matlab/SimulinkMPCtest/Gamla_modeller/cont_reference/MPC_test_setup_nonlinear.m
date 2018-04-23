@@ -14,22 +14,21 @@ global phi_min;
 global theta_min;
 global theta_max;
 Ts_control=0.05; % sample time
-Qglobal=diag([1 1 1 1 0 0 0 0]); %weight on states
-Rglobal=diag([1 1])*1;     %weight on control signal
+Qglobal=diag([1 1 0 0 0 0 0 0]); %weight on states
+Rglobal=diag([1 1])*0;     %weight on control signal
 umaxglobal=[1,0]'*10; %constraint on control
 uminglobal=[0,-1]'*10;
 phi_min=-pi;
 phi_max=pi;
 theta_min=-pi/3.9;
 theta_max=pi/3.9;
-
+reference=-pi/10;
 %initial linearization point
 theta0=0;
 phi0=0;
-[Asystem,Bsystem,LinearizationPoint_x]=linearDiscreteModelGen(phi0,theta0,Ts_control);
+[Asystem,Bsystem,LinearizationPoint_x,LinearizationPoint_u]=linearDiscreteModelGen(phi0,theta0,Ts_control);
 k1=1e-2;
 k2=1.39e-2;
-LinearizationPoint_u=[LinearizationPoint_x(1)*k1,LinearizationPoint_x(2)*k2]'; %store lin. u
 %reference=[0,-pi/6,0,0,0,0,0,0]'; %in origninal state space
 
 %save the linearization in global vaariabels avalible to simulink function.

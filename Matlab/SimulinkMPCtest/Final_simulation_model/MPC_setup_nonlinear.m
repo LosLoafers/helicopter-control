@@ -26,7 +26,7 @@ theta_max=pi/3.9;
 
 
 %initial condition on model 
-x_0=[0,-pi/4,0,0,0,0,0,0]; 
+x_0=[0,0,0,0,0,0,0,0]; 
 
 
 %kalman setup

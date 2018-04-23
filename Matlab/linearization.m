@@ -1,4 +1,4 @@
-function [B,Afunction]=linearization()
+function [Bfunction,Afunction]=linearization()
 % A and B, where A is a function. derived from Gafverts model.
 %i.e the function returns a general linearization for anny point.
 
