@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.35"
+    ComputedModelVersion    "1.36"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -38,9 +38,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "tna13skn"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Apr 16 14:14:26 2018"
-  RTWModifiedTimeStamp	  445798576
-  ModelVersionFormat	  "1.%<AutoIncrement:35>"
+  LastModifiedDate	  "Thu Apr 26 13:09:52 2018"
+  RTWModifiedTimeStamp	  446386962
+  ModelVersionFormat	  "1.%<AutoIncrement:36>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -939,6 +939,16 @@ Model {
       BlockType		      Terminator
     }
     Block {
+      BlockType		      ToWorkspace
+      VariableName	      "simulink_output"
+      MaxDataPoints	      "1000"
+      Decimation	      "1"
+      SampleTime	      "0"
+      SaveFormat	      "Array"
+      FixptAsFi		      off
+      NumInputs		      "1"
+    }
+    Block {
       BlockType		      UnitDelay
       X0		      "0"
       InputProcessing	      "Inherited"
@@ -954,7 +964,7 @@ Model {
   }
   System {
     Name		    "Real_proc_LinuxMPC"
-    Location		    [44, 147, 1192, 794]
+    Location		    [54, 248, 1202, 895]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -968,7 +978,7 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "101"
+    SIDHighWatermark	    "104"
     Block {
       BlockType		      Clock
       Name		      "Clock"
@@ -1375,7 +1385,7 @@ Model {
       Name		      "Kalman"
       SID		      "1"
       Ports		      [5, 1]
-      Position		      [90, 20, 160, 160]
+      Position		      [90, 25, 160, 165]
       ZOrder		      -4
       LibraryVersion	      "1.32"
       ErrorFcn		      "Stateflow.Translate.translate"
@@ -1731,7 +1741,7 @@ Model {
       LibraryVersion	      "1.260"
       SourceBlock	      "simulink/Signal\nRouting/Manual Switch"
       SourceType	      "Manual Switch"
-      sw		      "0"
+      sw		      "1"
       action		      "0"
       varsize		      off
     }
@@ -1786,9 +1796,9 @@ Model {
       Ports		      [0, 1]
       Position		      [210, 319, 240, 351]
       ZOrder		      -13
-      Amplitude		      "[0 0.7]'"
-      Period		      "40/Ts_control"
-      PulseWidth	      "20/Ts_control"
+      Amplitude		      "[-0.7 0]'"
+      Period		      "30/Ts_control"
+      PulseWidth	      "15/Ts_control"
       SampleTime	      "Ts_control"
     }
     Block {
@@ -1841,8 +1851,8 @@ Model {
       Position		      [440, 15, 470, 50]
       ZOrder		      -16
       Floating		      off
-      Location		      [242, 497, 1175, 1061]
-      Open		      off
+      Location		      [151, 275, 1084, 839]
+      Open		      on
       NumInputPorts	      "2"
       List {
 	ListType		AxesTitles
@@ -1861,8 +1871,8 @@ Model {
       }
       ShowLegends	      off
       TimeRange		      "60"
-      YMin		      "-1.75~-1"
-      YMax		      "1.5~0.4"
+      YMin		      "-0.85~0"
+      YMax		      "0~0.0225"
       DataFormat	      "StructureWithTime"
       SampleTime	      "0"
     }
@@ -1874,7 +1884,7 @@ Model {
       Position		      [285, 71, 315, 104]
       ZOrder		      -16
       Floating		      off
-      Location		      [138, 350, 462, 589]
+      Location		      [128, 342, 452, 581]
       Open		      off
       NumInputPorts	      "2"
       List {
@@ -1940,7 +1950,7 @@ Model {
       Position		      [335, 146, 365, 179]
       ZOrder		      -16
       Floating		      off
-      Location		      [740, 150, 1217, 618]
+      Location		      [720, 134, 1197, 602]
       Open		      off
       NumInputPorts	      "2"
       List {
@@ -1973,7 +1983,7 @@ Model {
       Position		      [865, 389, 895, 421]
       ZOrder		      -16
       Floating		      off
-      Location		      [138, 350, 462, 589]
+      Location		      [78, 302, 402, 541]
       Open		      off
       NumInputPorts	      "1"
       List {
@@ -2079,6 +2089,42 @@ Model {
       SaturateOnIntegerOverflow	off
     }
     Block {
+      BlockType		      ToWorkspace
+      Name		      "To Workspace"
+      SID		      "102"
+      Ports		      [1]
+      Position		      [140, 260, 200, 290]
+      ZOrder		      -7
+      VariableName	      "xOut"
+      MaxDataPoints	      "inf"
+      SampleTime	      "-1"
+      SaveFormat	      "Timeseries"
+    }
+    Block {
+      BlockType		      ToWorkspace
+      Name		      "To Workspace1"
+      SID		      "103"
+      Ports		      [1]
+      Position		      [440, 390, 500, 420]
+      ZOrder		      -7
+      VariableName	      "refOut"
+      MaxDataPoints	      "inf"
+      SampleTime	      "-1"
+      SaveFormat	      "Timeseries"
+    }
+    Block {
+      BlockType		      ToWorkspace
+      Name		      "To Workspace2"
+      SID		      "104"
+      Ports		      [1]
+      Position		      [605, 330, 665, 360]
+      ZOrder		      -7
+      VariableName	      "tid"
+      MaxDataPoints	      "inf"
+      SampleTime	      "-1"
+      SaveFormat	      "Timeseries"
+    }
+    Block {
       BlockType		      UnitDelay
       Name		      "Unit Delay"
       SID		      "25"
@@ -2098,16 +2144,24 @@ Model {
     Line {
       SrcBlock		      "Kalman"
       SrcPort		      1
-      Points		      [15, 0]
+      Points		      [0, -5; 15, 0]
       Branch {
 	Points			[15, 0]
 	DstBlock		"Demux"
 	DstPort			1
       }
       Branch {
-	Points			[0, 140]
-	DstBlock		"Rate Transition"
-	DstPort			1
+	Points			[0, 105]
+	Branch {
+	  Points		  [0, 35]
+	  DstBlock		  "Rate Transition"
+	  DstPort		  1
+	}
+	Branch {
+	  Points		  [-55, 0]
+	  DstBlock		  "To Workspace"
+	  DstPort		  1
+	}
       }
     }
     Line {
@@ -2161,9 +2215,17 @@ Model {
     Line {
       SrcBlock		      "Clock"
       SrcPort		      1
-      Points		      [35, 0; 0, -30]
-      DstBlock		      "Switch"
-      DstPort		      2
+      Points		      [20, 0]
+      Branch {
+	Points			[15, 0; 0, -30]
+	DstBlock		"Switch"
+	DstPort			2
+      }
+      Branch {
+	Points			[0, 45]
+	DstBlock		"To Workspace2"
+	DstPort			1
+      }
     }
     Line {
       SrcBlock		      "Constant"
@@ -2256,15 +2318,23 @@ Model {
     Line {
       SrcBlock		      "Manual Switch2"
       SrcPort		      1
-      Points		      [70, 0; 0, -25]
+      Points		      [65, 0]
       Branch {
-	DstBlock		"Goto1"
-	DstPort			1
+	Points			[5, 0; 0, -25]
+	Branch {
+	  DstBlock		  "Goto1"
+	  DstPort		  1
+	}
+	Branch {
+	  Points		  [0, -60]
+	  DstBlock		  "MPC"
+	  DstPort		  2
+	}
       }
       Branch {
-	Points			[0, -60]
-	DstBlock		"MPC"
-	DstPort			2
+	Points			[0, 60]
+	DstBlock		"To Workspace1"
+	DstPort			1
       }
     }
     Line {
@@ -2456,6 +2526,8 @@ Stateflow {
     created		    "16-Apr-2018 09:45:29"
     isLibrary		    0
     firstTarget		    21
+    debug {
+    }
     sfVersion		    76014001.00040001
   }
   chart {

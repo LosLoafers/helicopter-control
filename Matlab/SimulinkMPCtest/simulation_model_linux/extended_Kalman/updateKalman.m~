@@ -4,15 +4,16 @@ global Q;
 global Ts_kalman;
 C=[1 0 0 0 0 0 0 0;0 1 0 0 0 0 0 0];
 H=C;
-N=20;
 
-F=Jacobi_fk(x_hat,Ts_kalman,stop_angle);
+N=10;
 for i=1:N %update
   x_hat=f_k(x_hat,u,Ts_kalman/N,stop_angle);
+  F=Jacobi_fk(x_hat,Ts_kalman/N,stop_angle); %jacobian of f evaluated at x_hat
+  P=F*P*F'+(Ts_kalman/N)^2*Q; %predicted covariance    
 end
-
+P_new=P;
 %kalman predict
-P_new=F*P*F'+(Ts_kalman)^2*Q;
+
 ye=y-C*x_hat; %measurment residual
 S=H*P_new*H'+R;    %residual covariance
 K=P_new*H'/S;       %"optimal" kalman gain
