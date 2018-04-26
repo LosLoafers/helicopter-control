@@ -15,15 +15,14 @@ const theta_max = 0.45
 #------------------------------------------------------------------------------
 
 function cvxsolve(x,r)
-    [Asystem,Bsystem,LinearizationPoint_x,LinearizationPoint_u]=linearDiscreteModelGen(x[1],x[2],Ts_control)
+    (Asystem,Bsystem,LinearizationPoint_x,LinearizationPoint_u)=linearDescreteModelGen(x[1],x[2],Ts_control)
 
 #setup opt problem
-	println(LinearizationPoint_x)
     reference=[r;0;0;0;0;0;0]
     param_x_0=x-[LinearizationPoint_x;0;0]
-    Atmp=[Asystem,Bsystem;zeros(2,6),eye(2)]^2
+    Atmp=[Asystem Bsystem;zeros(2,6) eye(2)]
     Btmp=[Bsystem;zeros(2,2)]
-    param_A=reshape(Atmp^2,1,:)
+    param_A=reshape(Atmp*Atmp,1,:)
     param_B=reshape(Atmp*Btmp+Btmp,1,:)
     param_u_max=(umaxglobal-LinearizationPoint_u)'
     param_u_min=(uminglobal-LinearizationPoint_u)'
@@ -33,8 +32,8 @@ function cvxsolve(x,r)
     param_theta_min=theta_min-LinearizationPoint_x[2]
     param_theta_max=theta_max-LinearizationPoint_x[2]
 
-    u_pointer = ccall((:mpc,"./cvxgen/libcvx"),Ptr{Float64},(Ptr{Float64},Ptr{Float64},Ptr{Float64},Ptr{Float64},Ptr{Float64},Ptr{Float64},Ptr{Float64},Ptr{Float64},Float64,Float64,Float64,Float64),x_0,param_r,Qr,Rr,A,B,param_u_min,param_u_max,param_phi_min,param_phi_max,param_theta_min,param_theta_max)
-
+    u_pointer = ccall((:mpc,"./cvxgen/libcvx"),Ptr{Float64},(Ptr{Float64},Ptr{Float64},Ptr{Float64},Ptr{Float64},Ptr{Float64},Ptr{Float64},Ptr{Float64},Ptr{Float64},Float64,Float64,Float64,Float64),param_x_0,param_r,Qr,Rr,param_A,param_B,param_u_min,param_u_max,param_phi_min,param_phi_max,param_theta_min,param_theta_max)
+    
     u = [unsafe_load(u_pointer,1);unsafe_load(u_pointer,2)]
     u=(u+LinearizationPoint_u)'
 end
@@ -107,7 +106,7 @@ function linearDescreteModelGen(x1,x2,Ts)
     end
 
     Bdisc=Aintegral*Ts*B
-    linearizationPoint_x=[x1,x2,0,0,x5,x6]'
+    linearizationPoint_x=[x1 x2 0 0 x5 x6]'
     linearizationPoint_u=[x5*k1;x6*k2]
 
     Adisc, Bdisc, linearizationPoint_x, linearizationPoint_u
