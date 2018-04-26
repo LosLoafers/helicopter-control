@@ -21,7 +21,6 @@ global theta_min;
 global theta_max;
 [Asystem,Bsystem,LinearizationPoint_x,LinearizationPoint_u]=linearDiscreteModelGen(x(1),x(2),Ts_control);
 %setup opt problem
-LinearizationPoint_x
 A=[Asystem,Bsystem;zeros(2,6),eye(2)];
 B=[Bsystem;zeros(2,2)];
 A2=A^2;
@@ -51,4 +50,4 @@ settings.verbose = 0;  % disable output of solver progress.
 % solve
 
 [vars, ~] = csolve(params, settings);
-u=vars.u{1}+LinearizationPoint_u; %return the first output
+u=vars.u_0+LinearizationPoint_u; %return the first output

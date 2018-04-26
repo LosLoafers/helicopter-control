@@ -12,11 +12,12 @@ macro periodically(h,body)
 end
 
 #---------------global variables------------------------------------------------
-x_hat=[0;-pi/4;0;0;0;0;0;0] #estimated states
+(Asystem,Bsystem,LinearizationPoint_x,LinearizationPoint_u)=linearDescreteModelGen(0,0,0.02)
+x_hat=[LinearizationPoint_x;0;0] #estimated states
 u=[0 0]' #control signal
 y=[0 0]' #measurement signal
 P=eye(8) #covariance matrix
-const ampref = [0.3;0.3] #radians
+const ampref = [0;0] #radians
 const period = 10 #seconds
 #--------------------------------------------------------------------------------
 #client = connect(2001)
@@ -37,6 +38,7 @@ ref=ampref
 #		end
 		u=cvxsolve(x_hat,ref)
 		println(u)
+		
 		#analog.out(u)
 		#theta = analog.inT()
 		#(x_hat,p)=updateKalman(x_hat,u,y,p)
