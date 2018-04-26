@@ -52,7 +52,7 @@ class Reader extends Thread {
 public class Opcom {
 
        private PlotterPanel ThetaPlotter;
-       private PlotterPanel PhiPlotter; // has internal thread
+       private PlotterPanel PhiPlotter;
 
        private JFrame frame;
 
@@ -67,7 +67,7 @@ public class Opcom {
 
        public Opcom() {
               ThetaPlotter = new PlotterPanel(2, 4); // Two channels
-              PhiPlotter = new PlotterPanel(1, 4);
+              PhiPlotter = new PlotterPanel(2, 4);
        }
 
        public void start() {
@@ -122,18 +122,19 @@ public class Opcom {
               frame.setVisible(true);
        }
        /** Called by Reader to put a control signal data point in the buffer. */
-       public synchronized void putPhiDataPoint(DoublePoint dp) {
-                   double x = dp.x;
-                   double y = dp.y;
-                   PhiPlotter.putData(x, y);
+       public synchronized void putPhiDataPoint(PlotData pd) {
+                   double x = pd.x;
+                   double y = pd.y;
+                   double ref = pd.ref;
+                   PhiPlotter.putData(x, y, ref);
        }
 
        /** Called by Reader to put a measurement data point in the buffer. */
        public synchronized void putThetaDataPoint(PlotData pd) {
                    double x = pd.x;
-                   double ref = pd.ref;
                    double y = pd.y;
-                   ThetaPlotter.putData(x, ref, y);
+                   double ref = pd.ref;
+                   ThetaPlotter.putData(x, y, ref);
        }
 
 
