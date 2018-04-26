@@ -1,11 +1,12 @@
 #------------MPC setup--------------------------------------------------------
 const Ts_control = 0.02 #sample time
-const Qr = [3 zeros(1,8) 3 zeros(1,8) 2 zeros(1,8) 2 zeros(1,36)]#reshape(Diagonal([1;1;1;1;0;0;0;0]),1,:) #weight on states
-const Rr = [1 0 0 1]     #weight on control signal
+const Qr = [3 zeros(1,8) 3 zeros(1,8) 2 zeros(1,8) 2 zeros(1,36)]
+const Rr = [1 0 0 1]
 
 #constraints
-const umaxglobal = [1 0]'*10 #constraint on control
-const uminglobal = [0 -1]'*10
+const umaxglobal = [1 1]'*10 #constraint on control
+const uminglobal = [-1 -1]'*10
+
 const phi_min = -170/180*pi
 const phi_max = 170/180*pi
 const theta_min = -0.98
@@ -14,15 +15,16 @@ const theta_max = 0.45
 #------------------------------------------------------------------------------
 
 function cvxsolve(x,r)
-    (Asystem,Bsystem,LinearizationPoint_x,LinearizationPoint_u)=linearDescreteModelGen(x[1],x[2],Ts_control)
+    [Asystem,Bsystem,LinearizationPoint_x,LinearizationPoint_u]=linearDiscreteModelGen(x[1],x[2],Ts_control)
+
 #setup opt problem
 	println(LinearizationPoint_x)
     reference=[r;0;0;0;0;0;0]
-    x_0=x-[LinearizationPoint_x;0;0]
-    A=reshape([Asystem Bsystem;zeros(2,6) eye(2)],1,:)
-    B=reshape([Bsystem;zeros(2,2)],1,:)
-    #param_Q=Qglobal
-    #param_R=Rglobal
+    param_x_0=x-[LinearizationPoint_x;0;0]
+    Atmp=[Asystem,Bsystem;zeros(2,6),eye(2)]^2
+    Btmp=[Bsystem;zeros(2,2)]
+    param_A=reshape(Atmp^2,1,:)
+    param_B=reshape(Atmp*Btmp+Btmp,1,:)
     param_u_max=(umaxglobal-LinearizationPoint_u)'
     param_u_min=(uminglobal-LinearizationPoint_u)'
     param_r=(reference-[LinearizationPoint_x;0;0])'
@@ -32,8 +34,9 @@ function cvxsolve(x,r)
     param_theta_max=theta_max-LinearizationPoint_x[2]
 
     u_pointer = ccall((:mpc,"./cvxgen/libcvx"),Ptr{Float64},(Ptr{Float64},Ptr{Float64},Ptr{Float64},Ptr{Float64},Ptr{Float64},Ptr{Float64},Ptr{Float64},Ptr{Float64},Float64,Float64,Float64,Float64),x_0,param_r,Qr,Rr,A,B,param_u_min,param_u_max,param_phi_min,param_phi_max,param_theta_min,param_theta_max)
-    u = [unsafe_load(u_pointer,1) unsafe_load(u_pointer,2)]
-    u = u + LinearizationPoint_u'
+
+    u = [unsafe_load(u_pointer,1);unsafe_load(u_pointer,2)]
+    u=(u+LinearizationPoint_u)'
 end
 #---------------------------------------------------------------------------
 
@@ -104,7 +107,7 @@ function linearDescreteModelGen(x1,x2,Ts)
     end
 
     Bdisc=Aintegral*Ts*B
-    linearizationPoint_x=[x1 x2 0 0 x5 x6]'
+    linearizationPoint_x=[x1,x2,0,0,x5,x6]'
     linearizationPoint_u=[x5*k1;x6*k2]
 
     Adisc, Bdisc, linearizationPoint_x, linearizationPoint_u
