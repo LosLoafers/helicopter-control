@@ -36,7 +36,7 @@ public class MyClientSocket {
 
 	public static void main(String[] args) {
 		try{
-			MyClientSocket client = new MyClientSocket(2001);
+			MyClientSocket client = new MyClientSocket(2018);
 			client.send();
 		} catch(IOException e) {
 			System.err.println("Something went wrong: " + e);
