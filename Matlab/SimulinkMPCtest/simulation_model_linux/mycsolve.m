@@ -21,6 +21,7 @@ global theta_min;
 global theta_max;
 [Asystem,Bsystem,LinearizationPoint_x,LinearizationPoint_u]=linearDiscreteModelGen(x(1),x(2),Ts_control);
 %setup opt problem
+LinearizationPoint_x
 A=[Asystem,Bsystem;zeros(2,6),eye(2)];
 B=[Bsystem;zeros(2,2)];
 A2=A^2;
