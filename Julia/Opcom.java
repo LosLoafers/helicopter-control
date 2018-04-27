@@ -53,6 +53,8 @@ public class Opcom {
 
        private PlotterPanel ThetaPlotter;
        private PlotterPanel PhiPlotter;
+       private PlotterPanel u1Plotter;
+       private PlotterPanel u2Plotter;
 
        private JFrame frame;
 
@@ -68,17 +70,23 @@ public class Opcom {
        public Opcom() {
               ThetaPlotter = new PlotterPanel(2, 4); // Two channels
               PhiPlotter = new PlotterPanel(2, 4);
+              u1Plotter = new PlotterPanel(1, 4);
+              u2Plotter = new PlotterPanel(1, 4);
        }
 
        public void start() {
               ThetaPlotter.start();
               PhiPlotter.start();
+              u1Plotter.start();
+              u2Plotter.start();
        }
 
        /** Stops the threads. */
        public void stopThread() {
               ThetaPlotter.stopThread();
               PhiPlotter.stopThread();
+              u1Plotter.stopThread();
+              u2Plotter.stopThread();
        }
 
        public void initializeGUI() {
@@ -97,6 +105,14 @@ public class Opcom {
               PhiPlotter.setXAxis(range, divTicks, divGrid);
               PhiPlotter.setTitle("Position and refrence (horizontal)");
               plotterPanel.add(PhiPlotter);
+              u1Plotter.setYAxis(10, 0, 5, 5);
+              u1Plotter.setXAxis(range, divTicks, divGrid);
+              u1Plotter.setTitle("u1");
+              plotterPanel.add(u1Plotter);
+              u2Plotter.setYAxis(10, 0, 5, 5);
+              u2Plotter.setXAxis(range, divTicks, divGrid);
+              u2Plotter.setTitle("u2");
+              plotterPanel.add(u2Plotter);
 
               frame.add(plotterPanel);
               frame.addWindowListener(new WindowAdapter() {
@@ -136,6 +152,18 @@ public class Opcom {
                    double ref = pd.ref;
                    ThetaPlotter.putData(x, y, ref);
        }
+       public synchronized void putu1DataPoint(PlotData pd) {
+              double x = pd.x;
+              double y = pd.y;
+
+              u1Plotter.putData(x, y);
+ }
+ public synchronized void putu2DataPoint(PlotData pd) {
+        double x = pd.x;
+        double y = pd.y;
+
+        u2Plotter.putData(x, y);
+}
 
 
 

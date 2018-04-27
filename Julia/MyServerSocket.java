@@ -17,6 +17,11 @@ public class MyServerSocket {
     private String data;
     private PlotData pdTheta;
     private PlotData pdPhi;
+    private double u1;
+    private double u2;
+    private PlotData in1;
+    private PlotData in2;
+
 
     public MyServerSocket(int portNumber) throws Exception {
         this.server = new ServerSocket(portNumber, 1, InetAddress.getLocalHost());
@@ -56,6 +61,8 @@ public class MyServerSocket {
         this.theta = Double.parseDouble(parts[1]);
         this.phiref = Double.parseDouble(parts[2]);
         this.thetaref = Double.parseDouble(parts[3]);
+        this.u1 = Double.parseDouble(parts[4]);
+        this.u2 = Double.parseDouble(parts[5]);
     }
 
     private void plot(double dtime) {
@@ -67,6 +74,14 @@ public class MyServerSocket {
         pdPhi.y = phi;
         pdPhi.ref = phiref;
         pdPhi.x = dtime;
+        in1 = new PlotData();
+        in1.y = u1;
+        in1.x = dtime;
+        in2 = new PlotData();
+        in2.y = u2;
+        in2.x = dtime;
+        opcom.putu1DataPoint(in1);
+        opcom.putu2DataPoint(in2);
         opcom.putThetaDataPoint(pdTheta);
         opcom.putPhiDataPoint(pdPhi);
     }
@@ -88,6 +103,6 @@ public class MyServerSocket {
         opcom.initializeGUI();
         opcom.start();
         app.listen();
-        
+
     }
 }
