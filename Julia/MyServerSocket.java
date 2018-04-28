@@ -21,6 +21,8 @@ public class MyServerSocket {
     private double u2;
     private PlotData in1;
     private PlotData in2;
+    public static boolean action;
+    //private static boolean t = true;
 
 
     public MyServerSocket(int portNumber) throws Exception {
@@ -41,12 +43,24 @@ public class MyServerSocket {
         plot(0);
         long time = 0;
         while (true) {
-            readIn(in);
-            dtime = System.currentTimeMillis() - h;
-            h = System.currentTimeMillis();
-            time = time + dtime;
-            plot(time/1000.0);
+
+            if(in.ready()){
+                Opcom.reset.setEnabled(false);
+                readIn(in);
+                dtime = System.currentTimeMillis() - h;
+                h = System.currentTimeMillis();
+                time = time + dtime;
+                plot(time/1000.0);
+            } else if(System.currentTimeMillis()-h > 100){
+                Opcom.reset.setEnabled(true);
+            }
+            if(action){
+                
+                break;
+            }
+
         }
+
     }
 
 
@@ -98,11 +112,14 @@ public class MyServerSocket {
         System.out.println("\r\nRunning Server: " +
         "Host=" + app.getSocketAddress().getHostAddress() +
         " Port=" + app.getPort());
+        while(true){
 
-        opcom = new Opcom();
-        opcom.initializeGUI();
-        opcom.start();
-        app.listen();
+            opcom = new Opcom();
+            opcom.initializeGUI();
+            opcom.start();
+            action = false;
+            app.listen();
+    }
 
     }
 }
