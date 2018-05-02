@@ -1,43 +1,30 @@
 #kalman setup
 const Ts_kalman=0.01;
-const h=Ts_kalman; # for the real process
-const Q=Diagonal([0.1;0.1;0.1;0.1;0.1;0.1;50;50])*1e-4
+const Q=Diagonal([0.1;0.1;0.1;0.1;0.1;0.1;60;80])*1e-3
 const R=[0.0679 0.0274;0.0274 0.4867]*1e-5 #covariance
-const stop_angle = -pi/4
-#R1=sqrtm(R) #std
-#P_0=eye(8)*100
-
-
-
+const stop_angle = -0.95
+const N=20
 #---------------------------------------------------------------------------
 
 function updateKalman(x_hat,u,y,P)
 
-#stop_angle=-pi/4; %MUST be lager than the real stop value! Kalman will
-#fail otherwise.
 
-#if(y(2)<stop_angle_)
-#     x_temp=f_k(x_hat,u,Ts_kalman,stop_angle_);
-#     x_new=[y;x_temp(3:8)]
-#     P_new=P;
-# else
-
-#x_k+1=f(x_k)+vk
-#y_k=h(x_k)=C*x_k
     F=Jacobi_fk(x_hat,Ts_kalman,stop_angle) #jacobian of f evaluated at x_hat
 #Jacobian of h(x)
     C=[1 0 0 0 0 0 0 0;0 1 0 0 0 0 0 0]
     H=C
-
+	for i=1:N
+		x_hat=f_k(x_hat,u,Ts_kalman/N,stop_angle)
+	end
 #kalman update
     P_new=F*P*F'+Ts_kalman^2*Q #predicted covariance
     ye=y-C*x_hat #measurment residual
     S=H*P_new*H'+R  #residual covariance
     K=P_new*H'/S  #"optimal" kalman gain
-    x_new=f_k(x_hat,u,Ts_kalman,stop_angle)+K*ye
+    x_new=x_hat+K*ye
     P_new=(eye(8)-K*H)*P_new #updated covariance
     P_new=(P_new+P_new')./2 #P must be symetric
-
+	#println("P=",P_new)
     x_new,P_new
 end
 
@@ -133,8 +120,8 @@ function Jacobi_fk(X,Ts,stop_angle)
         F[7,7]=0
         F[4,4]=0.1 #put the dthata state derivative to zero.
                 #not sure if this is necessary....
-            end
-            F
+    end
+	F
 end
 
 #------------------------------------------------------------------------------
