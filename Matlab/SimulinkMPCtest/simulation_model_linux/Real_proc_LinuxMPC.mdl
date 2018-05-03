@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.36"
+    ComputedModelVersion    "1.37"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -36,11 +36,11 @@ Model {
   Creator		  "tna13skn"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "tna13skn"
+  LastModifiedBy	  "dat14rsa"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Apr 26 13:09:52 2018"
-  RTWModifiedTimeStamp	  446386962
-  ModelVersionFormat	  "1.%<AutoIncrement:36>"
+  LastModifiedDate	  "Wed May 02 18:58:44 2018"
+  RTWModifiedTimeStamp	  447185671
+  ModelVersionFormat	  "1.%<AutoIncrement:37>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -78,6 +78,7 @@ Model {
     $ObjectID		    2
     $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
     model_		    "kalman"
+    signals_		    []
     overrideMode_	    [0.0]
     Array {
       Type		      "Cell"
@@ -964,8 +965,8 @@ Model {
   }
   System {
     Name		    "Real_proc_LinuxMPC"
-    Location		    [258, 177, 1406, 824]
-    Open		    off
+    Location		    [55, 292, 1203, 939]
+    Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
     ScreenColor		    "white"
@@ -1144,7 +1145,7 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"Helicopter Process\nvia daqboard"
-	Location		[49, 326, 1193, 1154]
+	Location		[126, 299, 1270, 1127]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -1217,12 +1218,23 @@ Model {
 	  Position		  [170, 209, 200, 241]
 	  ZOrder		  15
 	  Floating		  off
-	  Location		  [188, 365, 512, 604]
+	  Location		  [178, 357, 502, 596]
 	  Open			  off
 	  NumInputPorts		  "1"
+	  ZoomMode		  "xonly"
 	  List {
 	    ListType		    AxesTitles
 	    axes1		    "%<SignalLabel>"
+	  }
+	  List {
+	    ListType		    ScopeGraphics
+	    FigureColor		    "[0.5 0.5 0.5]"
+	    AxesColor		    "[0 0 0]"
+	    AxesTickColor	    "[1 1 1]"
+	    LineColors		    "[1 1 0;1 0 1;0 1 1;1 0 0;0 1 0;0 0 1]"
+	    LineStyles		    "-|-|-|-|-|-"
+	    LineWidths		    "[0.5 0.5 0.5 0.5 0.5 0.5]"
+	    MarkerStyles	    "none|none|none|none|none|none"
 	  }
 	  ShowLegends		  off
 	  SaveName		  "ScopeData1"
@@ -1983,7 +1995,7 @@ Model {
       Position		      [865, 389, 895, 421]
       ZOrder		      -16
       Floating		      off
-      Location		      [78, 302, 402, 541]
+      Location		      [113, 662, 437, 901]
       Open		      off
       NumInputPorts	      "1"
       List {
@@ -2001,7 +2013,8 @@ Model {
 	MarkerStyles		"none|none|none|none|none|none"
       }
       ShowLegends	      off
-      YMin		      "-7"
+      YMin		      "-4"
+      YMax		      "3"
       SaveName		      "ScopeData4"
       DataFormat	      "StructureWithTime"
       SampleTime	      "0"

@@ -3,7 +3,7 @@ const Ts_kalman=0.01;
 const Q=Diagonal([0.1;0.1;0.1;0.1;0.1;0.1;60;80])*1e-3
 const R=[0.0679 0.0274;0.0274 0.4867]*1e-5 #covariance
 const stop_angle = -0.95
-const N=20
+const N=10
 #---------------------------------------------------------------------------
 
 function updateKalman(x_hat,u,y,P)

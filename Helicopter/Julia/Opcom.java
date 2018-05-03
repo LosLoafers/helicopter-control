@@ -56,16 +56,22 @@ public class Opcom {
        private PlotterPanel u1Plotter;
        private PlotterPanel u2Plotter;
 
+
        private JFrame frame;
 
        // Declaration of panels.
        private BoxPanel plotterPanel;
+       private BoxPanel top;
+       private BoxPanel middle;
+       private BoxPanel lower;
+
+       public static JButton reset;
 
        private double range = 10.0; // Range of time axis
        private int divTicks = 5;    // Number of ticks on time axis
        private int divGrid = 5;     // Number of grids on time axis
 
-       private boolean hChanged = false;
+
 
        public Opcom() {
               ThetaPlotter = new PlotterPanel(2, 4); // Two channels
@@ -94,26 +100,45 @@ public class Opcom {
               frame = new JFrame("Helicopter");
 
               // Create a panel for the two plotters.
+              top = new BoxPanel(BoxPanel.HORIZONTAL);
+              middle = new BoxPanel(BoxPanel.HORIZONTAL);
               plotterPanel = new BoxPanel(BoxPanel.VERTICAL);
-
+              lower = new BoxPanel(BoxPanel.VERTICAL);
               ThetaPlotter.setYAxis(3, -1.5, 6, 6);
               ThetaPlotter.setXAxis(range, divTicks, divGrid);
-              ThetaPlotter.setTitle("Position and refrence (vertical)");
-              plotterPanel.add(ThetaPlotter);
+              ThetaPlotter.setTitle("Position and refrence (vertical/Theta)");
+              top.add(ThetaPlotter);
+              top.addFixed(10);
               plotterPanel.addFixed(10);
-              PhiPlotter.setYAxis(6, -3, 4, 4);
+              PhiPlotter.setYAxis(3.2, -1.6, 4, 4);
               PhiPlotter.setXAxis(range, divTicks, divGrid);
-              PhiPlotter.setTitle("Position and refrence (horizontal)");
-              plotterPanel.add(PhiPlotter);
-              u1Plotter.setYAxis(22, -11, 5, 5);
+              PhiPlotter.setTitle("Position and refrence (horizontal/Phi)");
+              top.add(PhiPlotter);
+              u1Plotter.setYAxis(22, -11, 6, 6);
               u1Plotter.setXAxis(range, divTicks, divGrid);
               u1Plotter.setTitle("u1");
-              plotterPanel.add(u1Plotter);
-              u2Plotter.setYAxis(22, -11, 5, 5);
+              middle.add(u1Plotter);
+              middle.addFixed(10);
+              u2Plotter.setYAxis(22, -11, 6, 6);
               u2Plotter.setXAxis(range, divTicks, divGrid);
               u2Plotter.setTitle("u2");
-              plotterPanel.add(u2Plotter);
+              middle.add(u2Plotter);
 
+              reset = new JButton("Reset");
+              reset.setEnabled(false);
+              reset.addActionListener(new ActionListener() {
+                     public void actionPerformed(ActionEvent e) {
+                            frame.dispose();
+                            MyServerSocket.action = true;
+
+			}
+		});
+
+              lower.add(reset);
+              lower.addFixed(10);
+              plotterPanel.add(top);
+              plotterPanel.add(middle);
+              plotterPanel.add(lower);
               frame.add(plotterPanel);
               frame.addWindowListener(new WindowAdapter() {
                      public void windowClosing(WindowEvent e) {

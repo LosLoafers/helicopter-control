@@ -1,8 +1,8 @@
 client = connect("127.0.1.1", 2018);
-phi = 30
-theta = 44
-refPhi = 33
-refTheta = 40
+phi = 0.30
+theta = 0.44
+refPhi = 0.33
+refTheta = 0.40
 u1=4
 u2=3
 iter = 0

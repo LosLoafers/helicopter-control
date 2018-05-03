@@ -18,28 +18,28 @@ double* mpc(double *x_0, double *r, double *Q, double *R, double *A, double *B, 
 	setup_indexing();
 	for (i = 0; i < 8; i++){
 		params.x_0[i] = x_0[i];
-		printf("x[%d]:%f",i,params.x_0[i]);
-		printf("\n");	
+		/*printf("x[%d]:%f",i,params.x_0[i]);
+		printf("\n");	*/
 	}
 	for (i = 0; i < 8; i++){
 		params.r[i] = r[i];
-		printf("r[%d]:%f",i,params.r[i]);
-		printf("\n");		
+		/*printf("r[%d]:%f",i,params.r[i]);
+		printf("\n");	*/	
 	}
 	for (i = 0; i < 64; i++){
 		params.Q[i] = Q[i];
-		printf("Q[%d]:%f",i,params.Q[i]);
-		printf("\n");	
+		/*printf("Q[%d]:%f",i,params.Q[i]);
+		printf("\n");	*/
 	}
 	for (i = 0; i < 4; i++){
 		params.R[i] = R[i];
-		printf("R[%d]:%f",i,params.R[i]);
-		printf("\n");	
+		/*printf("R[%d]:%f",i,params.R[i]);
+		printf("\n");	*/
 	}
 	for (i = 0; i < 64; i++){
 		params.A[i] = A[i];	
-		printf("A[%d]:%f",i,params.A[i]);
-		printf("\n");
+		/*printf("A[%d]:%f",i,params.A[i]);
+		printf("\n");*/
 	}
 	for (i = 0; i < 16; i++){
 		params.B[i] = B[i];		
@@ -52,10 +52,10 @@ double* mpc(double *x_0, double *r, double *Q, double *R, double *A, double *B, 
 	params.phi_max[0] = phi_max;
 	params.theta_min[0] = theta_min;
 	params.theta_max[0] = theta_max;
-	printf("u_min:%f , %f\n",params.u_min[0],params.u_min[1]);
+	/*printf("u_min:%f , %f\n",params.u_min[0],params.u_min[1]);
 	printf("u_max:%f , %f\n",params.u_max[0],params.u_max[1]);
 	printf("phi_min:%f phi_max:%f\n",params.phi_min[0],params.phi_max[0]);
-	printf("theta_min:%f theta_max:%f\n",params.theta_min[0],params.theta_max[0]);
+	printf("theta_min:%f theta_max:%f\n",params.theta_min[0],params.theta_max[0]);*/
 
 	settings.verbose = 0;
 	solve();
