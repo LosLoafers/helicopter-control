@@ -38,7 +38,7 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "tna13skn"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Apr 26 13:09:52 2018"
+  LastModifiedDate	  "Fri Apr 27 11:32:05 2018"
   RTWModifiedTimeStamp	  446386962
   ModelVersionFormat	  "1.%<AutoIncrement:36>"
   ConfigurationManager	  "None"
@@ -78,6 +78,7 @@ Model {
     $ObjectID		    2
     $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
     model_		    "kalman"
+    signals_		    []
     overrideMode_	    [0.0]
     Array {
       Type		      "Cell"
@@ -964,8 +965,8 @@ Model {
   }
   System {
     Name		    "Real_proc_LinuxMPC"
-    Location		    [258, 177, 1406, 824]
-    Open		    off
+    Location		    [78, 174, 1226, 821]
+    Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
     ScreenColor		    "white"
@@ -978,7 +979,7 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "104"
+    SIDHighWatermark	    "105"
     Block {
       BlockType		      Clock
       Name		      "Clock"
@@ -1385,7 +1386,7 @@ Model {
       Name		      "Kalman"
       SID		      "1"
       Ports		      [5, 1]
-      Position		      [90, 20, 160, 160]
+      Position		      [90, 25, 160, 165]
       ZOrder		      -4
       LibraryVersion	      "1.32"
       ErrorFcn		      "Stateflow.Translate.translate"
@@ -1741,7 +1742,7 @@ Model {
       LibraryVersion	      "1.260"
       SourceBlock	      "simulink/Signal\nRouting/Manual Switch"
       SourceType	      "Manual Switch"
-      sw		      "1"
+      sw		      "0"
       action		      "0"
       varsize		      off
     }
@@ -1794,11 +1795,24 @@ Model {
       Name		      "Pulse\nGenerator"
       SID		      "47"
       Ports		      [0, 1]
-      Position		      [210, 319, 240, 351]
+      Position		      [145, 464, 175, 496]
       ZOrder		      -13
-      Amplitude		      "[-0.7 0]'"
+      Amplitude		      "[-0.7]'"
       Period		      "30/Ts_control"
       PulseWidth	      "15/Ts_control"
+      SampleTime	      "Ts_control"
+    }
+    Block {
+      BlockType		      DiscretePulseGenerator
+      Name		      "Pulse\nGenerator1"
+      SID		      "105"
+      Ports		      [0, 1]
+      Position		      [140, 414, 170, 446]
+      ZOrder		      -13
+      Amplitude		      "[ -0.7]'"
+      Period		      "30/Ts_control"
+      PulseWidth	      "15/Ts_control"
+      PhaseDelay	      "6/Ts_control"
       SampleTime	      "Ts_control"
     }
     Block {
@@ -1851,7 +1865,7 @@ Model {
       Position		      [440, 15, 470, 50]
       ZOrder		      -16
       Floating		      off
-      Location		      [151, 275, 1084, 839]
+      Location		      [141, 267, 1074, 831]
       Open		      off
       NumInputPorts	      "2"
       List {
@@ -1871,8 +1885,8 @@ Model {
       }
       ShowLegends	      off
       TimeRange		      "60"
-      YMin		      "-1.2~-1"
-      YMax		      "0.1~0.1"
+      YMin		      "-0.85~-0.75"
+      YMax		      "0~0.05"
       DataFormat	      "StructureWithTime"
       SampleTime	      "0"
     }
@@ -2022,7 +2036,7 @@ Model {
       Name		      "Sine Wave"
       SID		      "99"
       Ports		      [0, 1]
-      Position		      [155, 415, 185, 445]
+      Position		      [125, 355, 155, 385]
       ZOrder		      634
       Amplitude		      "1.5"
       Frequency		      "0.5"
@@ -2033,7 +2047,7 @@ Model {
       Name		      "Sine Wave1"
       SID		      "100"
       Ports		      [0, 1]
-      Position		      [155, 465, 185, 495]
+      Position		      [65, 350, 95, 380]
       ZOrder		      635
       Amplitude		      "0.4"
       Frequency		      "0.5"
@@ -2144,7 +2158,7 @@ Model {
     Line {
       SrcBlock		      "Kalman"
       SrcPort		      1
-      Points		      [15, 0]
+      Points		      [0, -5; 15, 0]
       Branch {
 	Points			[15, 0]
 	DstBlock		"Demux"
@@ -2338,12 +2352,6 @@ Model {
       }
     }
     Line {
-      SrcBlock		      "Pulse\nGenerator"
-      SrcPort		      1
-      DstBlock		      "Manual Switch2"
-      DstPort		      1
-    }
-    Line {
       SrcBlock		      "Constant2"
       SrcPort		      1
       DstBlock		      "Kalman"
@@ -2457,19 +2465,6 @@ Model {
       DstPort		      2
     }
     Line {
-      SrcBlock		      "Sine Wave1"
-      SrcPort		      1
-      DstBlock		      "Mux2"
-      DstPort		      2
-    }
-    Line {
-      SrcBlock		      "Sine Wave"
-      SrcPort		      1
-      Points		      [15, 0]
-      DstBlock		      "Mux2"
-      DstPort		      1
-    }
-    Line {
       SrcBlock		      "Mux2"
       SrcPort		      1
       Points		      [15, 0; 0, -95; 40, 0]
@@ -2508,6 +2503,19 @@ Model {
       SrcPort		      1
       Points		      [10, 0; 0, -10]
       DstBlock		      "Scope"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Pulse\nGenerator"
+      SrcPort		      1
+      DstBlock		      "Mux2"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "Pulse\nGenerator1"
+      SrcPort		      1
+      Points		      [15, 0; 0, 30]
+      DstBlock		      "Mux2"
       DstPort		      1
     }
   }

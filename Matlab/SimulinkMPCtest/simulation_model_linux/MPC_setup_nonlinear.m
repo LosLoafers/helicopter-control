@@ -35,7 +35,7 @@ global R;
 global Ts_kalman;
 Ts_kalman=0.01;
 h=Ts_kalman; % for the real process
-Q=diag([1 1 1 1 1 1 60 80])*1e-3;
+Q=diag([1 1 1 1 1 1 80 80])*1e-3;
 %R = rand(2,2);
 R=[0.0679 0.0274;0.0274 0.4867]*1e-5; %covariance
 R1=sqrtm(R); %std
