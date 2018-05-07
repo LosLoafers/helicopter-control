@@ -1,11 +1,11 @@
 #------------MPC setup--------------------------------------------------------
-const Ts_control = 0.02 #sample time
-const Qr = [3 zeros(1,8) 3 zeros(1,8) 2 zeros(1,8) 2 zeros(1,36)]
-const Rr = [1 0 0 1]
+const Ts_control = 0.05 #sample time
+const Qr = [3.0 zeros(1,8) 3.0 zeros(1,8) 2.0 zeros(1,8) 2.0 zeros(1,36)]
+const Rr = [1.0 0.0 0.0 1.0]*10
 
 #constraints
-const umaxglobal = [1 1]'*10 #constraint on control
-const uminglobal = [-1 -1]'*10
+const umaxglobal = [1 0]'*10 #constraint on control
+const uminglobal = [0 -1]'*10
 
 const phi_min = -170/180*pi
 const phi_max = 170/180*pi
@@ -22,8 +22,8 @@ function cvxsolve(x,r)
     param_x_0=x-[LinearizationPoint_x;0;0]
     Atmp=[Asystem Bsystem;zeros(2,6) eye(2)]
     Btmp=[Bsystem;zeros(2,2)]
-    param_A=reshape(Atmp*Atmp,1,:)
-    param_B=reshape(Atmp*Btmp+Btmp,1,:)
+    param_A=reshape(Atmp,1,:) #reshape(Atmp*Atmp,1,:)
+    param_B=reshape(Btmp,1,:) #reshape(Atmp*Btmp+Btmp,1,:)
     param_u_max=(umaxglobal-LinearizationPoint_u)'
     param_u_min=(uminglobal-LinearizationPoint_u)'
     param_r=(reference-[LinearizationPoint_x;0;0])'
@@ -31,11 +31,11 @@ function cvxsolve(x,r)
     param_phi_min=phi_min-LinearizationPoint_x[1]
     param_theta_min=theta_min-LinearizationPoint_x[2]
     param_theta_max=theta_max-LinearizationPoint_x[2]
-
     u_pointer = ccall((:mpc,"./cvxgen/libcvx"),Ptr{Float64},(Ptr{Float64},Ptr{Float64},Ptr{Float64},Ptr{Float64},Ptr{Float64},Ptr{Float64},Ptr{Float64},Ptr{Float64},Float64,Float64,Float64,Float64),param_x_0,param_r,Qr,Rr,param_A,param_B,param_u_min,param_u_max,param_phi_min,param_phi_max,param_theta_min,param_theta_max)
-    
+
     u = [unsafe_load(u_pointer,1);unsafe_load(u_pointer,2)]
     u=(u+LinearizationPoint_u)'
+	
 end
 #---------------------------------------------------------------------------
 
@@ -111,4 +111,13 @@ function linearDescreteModelGen(x1,x2,Ts)
     linearizationPoint_u=[x5*k1;x6*k2]
 
     Adisc, Bdisc, linearizationPoint_x, linearizationPoint_u
+end
+
+function sat(x)
+	if x>10
+		x=10
+	elseif x<-10
+		x=-10
+	end
+	x
 end

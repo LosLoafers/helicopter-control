@@ -1,4 +1,4 @@
-# __precompile__()
+__precompile__()
 installed_packages = Pkg.installed()
 if "LabConnections" ∉ keys(installed_packages)
 	Pkg.clone("https://gitlab.control.lth.se/cont-frb/LabConnections.jl")

@@ -1,9 +1,15 @@
 using LabProcesses
 
-prinln("Starting...")
-P=ETHHelicopter
-println(P)
-prinln("Got here")
-y=measure(P)
-println(y)
-prinln("And here")
+println("Starting...")
+Choppah=ETHHelicopter()
+y_temp=[0.0 0.0]
+y=[0.0 0.0]
+println("Got here")
+for i=0:100
+	y_temp=measure(Choppah)
+	#y[2]=y_temp[1]/10*59/180*pi
+	#y[1]=y_temp[2]/10*175/180*pi
+	println(y_temp)
+#	sleep(1)
+end
+println("And here")
