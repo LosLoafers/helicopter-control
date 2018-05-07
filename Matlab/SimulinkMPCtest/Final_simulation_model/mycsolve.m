@@ -30,10 +30,10 @@ params.R=Rglobal;
 params.u_max=umaxglobal-LinearizationPoint_u;
 params.u_min=uminglobal-LinearizationPoint_u;
 params.r=reference-[LinearizationPoint_x;0;0];
-params.phi_max=phi_max;
-params.phi_min=phi_min;
-params.theta_min=theta_min;
-params.theta_max=theta_max;
+params.phi_max=phi_max-LinearizationPoint_x(1);
+params.phi_min=phi_min-LinearizationPoint_x(1);
+params.theta_min=theta_min-LinearizationPoint_x(2);
+params.theta_max=theta_max-LinearizationPoint_x(2);
 
 
 % Create a new settings structure. Just some example
@@ -46,4 +46,4 @@ settings.verbose = 0;  % disable output of solver progress.
 % solve
 
 [vars, ~] = csolve(params, settings);
-u=vars.u{1}+LinearizationPoint_u; %return the first output
+u=vars.u_0+LinearizationPoint_u; %return the first output

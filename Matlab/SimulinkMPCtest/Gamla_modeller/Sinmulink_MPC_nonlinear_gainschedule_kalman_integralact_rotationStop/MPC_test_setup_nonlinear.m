@@ -37,7 +37,7 @@ LinearizationPoint_u=[LinearizationPoint_x(1)*k1,LinearizationPoint_x(2)*k2]'; %
 
 
 %initial condition 
-x_0=[0,-pi/4,0,0,0,0,0,0]; 
+x_0=[0,0,0,0,0,0,0,0]; 
 
 %initial u signal for startup
 [~,~,step_x]=linearDiscreteModelGen(0,pi/4.3,Ts_control);

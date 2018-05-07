@@ -26,7 +26,7 @@ theta_max=pi/3.9;
 
 
 %initial condition on model 
-x_0=[0,-pi/4,0,0,0,0,0,0]; 
+x_0=[0,0,0,0,0,0,0,0]; 
 
 
 %kalman setup
@@ -35,7 +35,7 @@ global R;
 global Ts_kalman;
 Ts_kalman=0.01;
 h=Ts_kalman; % for the real process
-Q=diag([0.1 0.1 0.1 0.1 0.1 0.1 50 50])*1e-4;
+Q=diag([0.1 0.1 0.1 0.1 0.1 0.1 60 60])*1e-4;
 %R = rand(2,2);
 R=[0.0679 0.0274;0.0274 0.4867]*1e-5; %covariance
 R1=sqrtm(R); %std

@@ -13,7 +13,7 @@ global theta_max;
 
 %MPC setup
 Ts_control=0.02; % sample time
-Qglobal=diag([3 3 2 3 0 0 0 0]); %weight on states
+Qglobal=diag([3 3 2 2 0 0 0 0]); %weight on states
 Rglobal=diag([1 1])*1;     %weight on control signal
 %constraints
 umaxglobal=[1,0]'*10; %constraint on control
@@ -22,6 +22,7 @@ phi_min=-170/180*pi;
 phi_max=170/180*pi;
 theta_min=-0.98;
 theta_max=0.45;
+%theta_max=0;
 
 
 
