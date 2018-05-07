@@ -1,0 +1,3 @@
+javac -classpath .:regler.jar *.java
+
+java -classpath .:regler.jar MyServerSocket

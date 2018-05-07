@@ -40,18 +40,6 @@ params.theta_min=theta_min-LinearizationPoint_x(2);
 params.theta_max=theta_max-LinearizationPoint_x(2);
 
 
-xx=x-[LinearizationPoint_x;0;0]
-A2
-B2
-Qglobal
-Rglobal
-umaaax=umaxglobal-LinearizationPoint_u
-umiiin=uminglobal-LinearizationPoint_u
-reeeef=reference-[LinearizationPoint_x;0;0]
-phiii_max=phi_max-LinearizationPoint_x(1)
-phii_min=phi_min-LinearizationPoint_x(1)
-theeta_min=theta_min-LinearizationPoint_x(2)
-theeta_max=theta_max-LinearizationPoint_x(2)
 
 % Create a new settings structure. Just some example
 % copied from the cvx homepage:

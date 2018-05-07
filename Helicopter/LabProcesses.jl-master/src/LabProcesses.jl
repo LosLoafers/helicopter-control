@@ -1,8 +1,8 @@
 __precompile__()
 installed_packages = Pkg.installed()
 if "LabConnections" ∉ keys(installed_packages)
-	Pkg.clone("https://gitlab.control.lth.se/cont-frb/LabConnections.jl")
-	# Pkg.checkout("LabConnection","v0.0.1")
+	#Pkg.clone("https://gitlab.control.lth.se/cont-frb/LabConnections.jl")
+	#Pkg.checkout("LabConnection","v0.0.1")
 end
 
 
@@ -21,3 +21,4 @@ include("reference_generators.jl")
 include("controllers.jl")
 
 end # module
+
