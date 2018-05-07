@@ -25,12 +25,12 @@ public class MyServerSocket {
         PlotData pdTheta;
         PlotData pdPhi;
         while ( (data = in.readLine()) != null ) {
-            time += 0.5;   //0.005;
-            Scanner sc = new Scanner(data);
-            double phi = sc.nextDouble(),
-                   theta = sc.nextDouble(),
-                   phiref = sc.nextDouble(),
-                   thetaref = sc.nextDouble();
+            time += 0.01;   //0.005;
+            String[] parts = data.split("/");
+            double phi = Double.parseDouble(parts[0]);
+            double theta = Double.parseDouble(parts[1]);
+            double phiref = Double.parseDouble(parts[2]);
+            double thetaref = Double.parseDouble(parts[3]);
                    pdTheta = new PlotData();
                    pdTheta.y = theta;
                    pdTheta.ref = thetaref;
@@ -40,14 +40,14 @@ public class MyServerSocket {
                    pdPhi.y = phi;
                    pdPhi.ref = phiref;
                    pdPhi.x = time;
-                   opcom.putThetaDataPoint(pdPhi);
+                   opcom.putPhiDataPoint(pdPhi);
 
 
-            /*
+
 						String type = data.getClass().getName();
             System.out.println("\r\nMessage from " + clientAddress + ": " + data + "\nMessage type: " + type);
 						out.println("\r\nYou sent: " + data + "\nMessage type: " + type);
-						out.flush();*/
+						out.flush();
 				}
     }
     public InetAddress getSocketAddress() {

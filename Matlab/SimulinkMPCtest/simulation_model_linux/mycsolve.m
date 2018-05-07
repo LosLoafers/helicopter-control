@@ -50,4 +50,4 @@ settings.verbose = 0;  % disable output of solver progress.
 % solve
 
 [vars, ~] = csolve(params, settings);
-u=vars.u{1}+LinearizationPoint_u; %return the first output
+u=vars.u_0+LinearizationPoint_u; %return the first output
