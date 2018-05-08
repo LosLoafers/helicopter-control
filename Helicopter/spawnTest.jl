@@ -2,32 +2,31 @@
 
 xchannel=Channel(32)
 uchannel=Channel(32)
-x=0
-put!(xchannel,x)
 
-u=0
-put!(uchannel,u)
+global x_remote=0
+put!(xchannel,x_remote)
+
+global u_remote=0
+put!(uchannel,u_remote)
   Su=ReentrantLock()
   Sx=ReentrantLock()
 
 kalman=@spawn begin
   x=0
-
-
+global u_remote=0
+global x_remote=0
   while true
     x=x+1
 
     lock(Su)
-    if isready(uchannel)
-      u=take!(uchannel)
-    end
+
+      u=u_remote
+
     unlock(Su)
 
     lock(Sx)
-    while isready(xchannel)
-      take!(xchannel)  #empty xchannel
-    end
-    put!(xchannel,x)
+
+    x_remote=x;
     unlock(Sx)
 
     println("on kalman ",u)
@@ -39,22 +38,21 @@ end
 
 MPC=@spawn begin
   u=0
-
+  global u_remote=0
+  global x_remote=0
   while true
     u=u+1
     lock(Sx)
-    if isready(xchannel)
-      xhat=take!(xchannel)
-    end
-    unlock(Sx)
 
+      x_hat=x_remote;
+
+    unlock(Sx)
     lock(Su)
-    while isready(uchannel)
-      take!(uchannel)         #empty uchannel
-    end
-    put!(uchannel,u)
+    u_remote=u
     unlock(Su)
-    println("on MPC ",xhat)
+
+    println("on MPC ",x_hat)
+
     sleep(0.2)
   end
 end

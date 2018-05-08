@@ -19,41 +19,35 @@ const period = 15 #seconds
 #client = connect(2001)
 
 #set up thread channels:
-xchannel=RemoteChannel(()->Channel{Int}(32))
-uchannel=RemoteChannel(()->Channel{Int}(32))
-x=0
-put!(xchannel,x)
-
-u=0
-put!(uchannel,u)
-Su=ReentrantLock()
-Sx=ReentrantLock()
+global u_remote = u_temp
+global x_remote = x_hat
+global we_should_run = true
+Lu=ReentrantLock()
+Lx=ReentrantLock()
 
 
-i=0
-we_should_run=true
+
 
 kalman=@spawn begin
+	global we_should_run
+	global u_remote
+	global x_remote
+
 	while we_should_run
 				@periodically Ts_kalman begin
 						y_temp=measure(Choppah)
 						y[2]=y_temp[1]/10*59/180*pi
 						y[1]=y_temp[2]/10*175/180*pi
 
-						lock(Su)
-				    if isready(uchannel)
-				      u=take!(uchannel)
-				    end
-				    unlock(Su)
+						lock(Lu)
+				    u=u_remote;
+				    unlock(Lu)
 
 						(x_hat,P)=updateKalman(x_hat,u,y,P)
 
-						lock(Sx)
-				    while isready(xchannel)
-				      take!(xchannel)  				#empty xchannel
-				    end
-				    put!(xchannel,x)
-				    unlock(Sx)
+						lock(Lx)
+				    x_remote=x_hat;
+				    unlock(Lx)
 				end
 
 		end
@@ -61,32 +55,34 @@ end
 
 
 MPC=@spawn begin
+	i=0
+	global we_should_run
+	global u_remote
+	global x_remote
 	while we_should_run
 				@periodically Ts_control begin
 						i=i+1
-						lock(Sx)
-				    if isready(xchannel)
-				      xhat=take!(xchannel)
-				    end
-						unlock(Sx)
+						lock(Lx)
+				    x_hat=x_remote;
+						unlock(Lx)
 
 						u_temp=cvxsolve(x_hat,ref)
 						u[1]=sat(u_temp[1])
 						u[2]=-sat(u_temp[2])
+
 						if i>100
 							control(Choppah,u)
+							lock(Lu)
+					    u_remote=u_temp;
+					    unlock(Lu)
 						else
 							control(Choppah,[0.0 0.0]')
+							lock(Lu)
+					    u_remote=[0.0 0.0]'
+					    unlock(Lu)
 						end
 
-						lock(Su)
-				    while isready(uchannel)
-				      take!(uchannel)         #empty uchannel
-				    end
-				    put!(uchannel,u)
-				    unlock(Su)
-						
-						if y[1]<-160/180*pi || y[1]>160/180*pi
+						if y[1]<-160/180*pi || y[1]>160/180*pi ||y[2]>0.7
 							control(Choppah,[0.0 0.0]')
 							we_should_run=false
 
