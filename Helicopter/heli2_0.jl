@@ -1,37 +1,34 @@
-include("Kalman.jl")
-include("cvx.jl")
-using LabProcesses
+@everywhere include("Kalman.jl")
+@everywhere include("cvx.jl")
+@everywhere using LabProcesses
 
-Choppah=ETHHelicopter()
+@everywhere Choppah=ETHHelicopter()
 
-client = connect("130.235.83.11",2018)
+@everywhere client = connect("130.235.83.11",2018)
 
 #---------------global variables------------------------------------------------
-#(Asystem,Bsystem,LinearizationPoint_x,LinearizationPoint_u)=linearDescreteModelGen(0,0,0.02)
-x_hat=[0;-0.93;0;0;0;0;0;0] #estimated states
-u=[0.0 0.0]' #control signal
-u_temp=[0.0 0.0]'
-y=[0.0 0.0]' #measurement signal
-P=100*eye(8) #covariance matrix
-const ampref = [0.0; 0.0]
-const period = 15 #seconds
+@everywhere x_hat=[0.0 -0.95 0.0 0.0 0.0 0.0 0.0 0.0]'
+@everywhere u=[0.0 0.0]' #control signal
+@everywhere u_temp=[0.0 0.0]'
+@everywhere y=[0.0 0.0]' #measurement signal
+@everywhere P=100*eye(8) #covariance matrix
+@everywhere we_should_run=true
 #--------------------------------------------------------------------------------
-#client = connect(2001)
-
-#set up thread channels:
-global u_remote = u_temp
-global x_remote = x_hat
-global we_should_run = true
-Lu=ReentrantLock()
-Lx=ReentrantLock()
 
 
+#set up channels and mutex:
+xchannel=RemoteChannel(()->Channel{Tuple}(2));
+uchannel=RemoteChannel(()->Channel{Tuple}(2));
 
+Su=ReentrantLock()
+Sx=ReentrantLock()
 
-kalman=@spawn begin
-	global we_should_run
-	global u_remote
-	global x_remote
+#----------------------kalman Loop-----------------------------------------------
+kalman=@spawnat 1 begin
+
+put!(xchannel,(x_hat[1],x_hat[2],x_hat[3],x_hat[4],x_hat[5],x_hat[6],x_hat[7],x_hat[8]))
+put!(uchannel,(u[1],u[2]))
+
 
 	while we_should_run
 				@periodically Ts_kalman begin
@@ -39,32 +36,38 @@ kalman=@spawn begin
 						y[2]=y_temp[1]/10*59/180*pi
 						y[1]=y_temp[2]/10*175/180*pi
 
-						lock(Lu)
-				    u=u_remote;
-				    unlock(Lu)
+						lock(Su)
+							if isready(uchannel)
+								u[1],u[2]=take!(uchannel)
+							end
+						unlock(Su)
 
 						(x_hat,P)=updateKalman(x_hat,u,y,P)
 
-						lock(Lx)
-				    x_remote=x_hat;
-				    unlock(Lx)
+						lock(Sx)
+				      while isready(xchannel) #empty channel. only last result should be stored
+				        take!(xchannel)
+				      end
+				      put!(xchannel,(x_hat[1],x_hat[2],x_hat[3],x_hat[4],x_hat[5],x_hat[6],x_hat[7],x_hat[8]))
+				    unlock(Sx)
 				end
 
 		end
 end
 
-
-MPC=@spawn begin
+#----------------------MPC Loop-----------------------------------------------
+MPC=@spawnat 2 begin
 	i=0
-	global we_should_run
-	global u_remote
-	global x_remote
+	put!(xchannel,(x_hat[1],x_hat[2],x_hat[3],x_hat[4],x_hat[5],x_hat[6],x_hat[7],x_hat[8]))
+	put!(uchannel,(u[1],u[2]))
 	while we_should_run
 				@periodically Ts_control begin
 						i=i+1
-						lock(Lx)
-				    x_hat=x_remote;
-						unlock(Lx)
+						lock(Sx)
+				      if isready(xchannel)
+				        x_hat[1],x_hat[2],x_hat[3],x_hat[4],x_hat[5],x_hat[6],x_hat[7],x_hat[8]=take!(xchannel)
+				      end
+				    unlock(Sx)
 
 						u_temp=cvxsolve(x_hat,ref)
 						u[1]=sat(u_temp[1])
@@ -72,19 +75,30 @@ MPC=@spawn begin
 
 						if i>100
 							control(Choppah,u)
-							lock(Lu)
-					    u_remote=u_temp;
-					    unlock(Lu)
+
+							lock(Su)
+					      while isready(uchannel) #empty channel. only last result should be stored
+					        take!(uchannel)
+					      end
+					      put!(uchannel,(u_temp[1],u_temp[2]))
+					    unlock(Su)
+
 						else
+
 							control(Choppah,[0.0 0.0]')
-							lock(Lu)
-					    u_remote=[0.0 0.0]'
-					    unlock(Lu)
+
+							lock(Su)
+					      while isready(uchannel) #empty channel. only last result should be stored
+					        take!(uchannel)
+					      end
+					      put!(uchannel,(0.0,0.0))
+					    unlock(Su)
+
 						end
 
 						if y[1]<-160/180*pi || y[1]>160/180*pi ||y[2]>0.7
 							control(Choppah,[0.0 0.0]')
-							we_should_run=false
+							@everywhere we_should_run=false
 
 						end
 				end
