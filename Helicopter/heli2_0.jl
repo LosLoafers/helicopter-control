@@ -90,4 +90,5 @@ MPC=@spawn begin
 				end
 
 		end
+		control(Choppah,[0.0 0.0]') # if we_should_run is set to false in terminal
 end

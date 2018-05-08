@@ -1,13 +1,14 @@
 
 
-xchannel=Channel(32)
-uchannel=Channel(32)
+#xchannel=Channel(32)
+#uchannel=Channel(32)
+#put!(xchannel,x_remote)
+#put!(uchannel,u_remote)
 
 global x_remote=0
-put!(xchannel,x_remote)
-
 global u_remote=0
-put!(uchannel,u_remote)
+global we_should_run=true
+
   Su=ReentrantLock()
   Sx=ReentrantLock()
 
@@ -15,7 +16,8 @@ kalman=@spawn begin
   x=0
 global u_remote=0
 global x_remote=0
-  while true
+global we_should_run
+  while we_should_run
     x=x+1
 
     lock(Su)
@@ -40,7 +42,8 @@ MPC=@spawn begin
   u=0
   global u_remote=0
   global x_remote=0
-  while true
+  global we_should_run
+  while we_should_run
     u=u+1
     lock(Sx)
 
