@@ -1,7 +1,7 @@
 #------------MPC setup--------------------------------------------------------
 const Ts_control = 0.02 #sample time
 const Qr = [3.0 zeros(1,8) 3.0 zeros(1,8) 2.0 zeros(1,8) 2.0 zeros(1,36)]
-const Rr = [1.0 0.0 0.0 1.0]*10
+const Rr = [1.0 0.0 0.0 5.0]*1000
 
 #constraints
 const umaxglobal = [1 0]'*10 #constraint on control
