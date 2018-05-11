@@ -6,7 +6,7 @@
 
 @everywhere Choppah=ETHHelicopter()
 
-@everywhere client = connect("130.235.83.11",2018)
+#@everywhere client = connect("130.235.83.11",2018)
 
 #---------------global variables------------------------------------------------
 @everywhere x_hat=[0.0 -0.95 0.0 0.0 0.0 0.0 0.0 0.0]'
@@ -71,7 +71,7 @@ MPC=@spawnat 2 begin
 				      end
 				    unlock(Lock_x)
 
-						u_temp=cvxsolve(x_hat,ref)
+						u_temp=cvxsolve(x_hat,[0;0])
 						u[1]=sat(u_temp[1])
 						u[2]=-sat(u_temp[2])
 
