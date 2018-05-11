@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.37"
+    ComputedModelVersion    "1.1"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -36,17 +36,11 @@ Model {
   Creator		  "tna13skn"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "dat14rsa"
+  LastModifiedBy	  "tna13skn"
   ModifiedDateFormat	  "%<Auto>"
-<<<<<<< HEAD
-  LastModifiedDate	  "Fri Apr 27 11:32:05 2018"
-  RTWModifiedTimeStamp	  446386962
-  ModelVersionFormat	  "1.%<AutoIncrement:36>"
-=======
-  LastModifiedDate	  "Wed May 02 18:58:44 2018"
-  RTWModifiedTimeStamp	  447185671
-  ModelVersionFormat	  "1.%<AutoIncrement:37>"
->>>>>>> ce143a0fc195b25abf1baeec2f08fe254ca76f48
+  LastModifiedDate	  "Mon May 07 15:10:45 2018"
+  RTWModifiedTimeStamp	  447603362
+  ModelVersionFormat	  "1.%<AutoIncrement:1>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -84,7 +78,6 @@ Model {
     $ObjectID		    2
     $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
     model_		    "kalman"
-    signals_		    []
     overrideMode_	    [0.0]
     Array {
       Type		      "Cell"
@@ -150,7 +143,7 @@ Model {
 	  $ObjectID		  4
 	  Version		  "1.12.0"
 	  StartTime		  "0.0"
-	  StopTime		  "60"
+	  StopTime		  "100"
 	  AbsTol		  "auto"
 	  FixedStep		  "auto"
 	  InitialStep		  "auto"
@@ -644,7 +637,7 @@ Model {
       }
       Name		      "Configuration"
       CurrentDlgPage	      "Solver"
-      ConfigPrmDlgPosition     [ 180, 107, 1100, 847 ] 
+      ConfigPrmDlgPosition     [ 170, 62, 1110, 857 ] 
     }
     PropName		    "ConfigurationSets"
   }
@@ -971,11 +964,7 @@ Model {
   }
   System {
     Name		    "Real_proc_LinuxMPC"
-<<<<<<< HEAD
-    Location		    [78, 174, 1226, 821]
-=======
-    Location		    [55, 292, 1203, 939]
->>>>>>> ce143a0fc195b25abf1baeec2f08fe254ca76f48
+    Location		    [79, 186, 1227, 833]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -989,7 +978,7 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "105"
+    SIDHighWatermark	    "107"
     Block {
       BlockType		      Clock
       Name		      "Clock"
@@ -1763,7 +1752,7 @@ Model {
       LibraryVersion	      "1.260"
       SourceBlock	      "simulink/Signal\nRouting/Manual Switch"
       SourceType	      "Manual Switch"
-      sw		      "0"
+      sw		      "1"
       action		      "0"
       varsize		      off
     }
@@ -1837,6 +1826,18 @@ Model {
       SampleTime	      "Ts_control"
     }
     Block {
+      BlockType		      DiscretePulseGenerator
+      Name		      "Pulse\nGenerator2"
+      SID		      "106"
+      Ports		      [0, 1]
+      Position		      [210, 319, 240, 351]
+      ZOrder		      -13
+      Amplitude		      "[0,pi/7]'"
+      Period		      "40/Ts_control"
+      PulseWidth	      "20/Ts_control"
+      SampleTime	      "Ts_control"
+    }
+    Block {
       BlockType		      RandomNumber
       Name		      "Random\nNumber"
       SID		      "22"
@@ -1886,7 +1887,7 @@ Model {
       Position		      [440, 15, 470, 50]
       ZOrder		      -16
       Floating		      off
-      Location		      [141, 267, 1074, 831]
+      Location		      [258, 248, 1191, 812]
       Open		      off
       NumInputPorts	      "2"
       List {
@@ -1906,8 +1907,8 @@ Model {
       }
       ShowLegends	      off
       TimeRange		      "60"
-      YMin		      "-0.85~-0.75"
-      YMax		      "0~0.05"
+      YMin		      "-0.4~-1"
+      YMax		      "0.15~0.5"
       DataFormat	      "StructureWithTime"
       SampleTime	      "0"
     }
@@ -2018,7 +2019,7 @@ Model {
       Position		      [865, 389, 895, 421]
       ZOrder		      -16
       Floating		      off
-      Location		      [113, 662, 437, 901]
+      Location		      [103, 654, 427, 893]
       Open		      off
       NumInputPorts	      "1"
       List {
@@ -2156,6 +2157,18 @@ Model {
       Position		      [605, 330, 665, 360]
       ZOrder		      -7
       VariableName	      "tid"
+      MaxDataPoints	      "inf"
+      SampleTime	      "-1"
+      SaveFormat	      "Timeseries"
+    }
+    Block {
+      BlockType		      ToWorkspace
+      Name		      "To Workspace3"
+      SID		      "107"
+      Ports		      [1]
+      Position		      [730, 345, 790, 375]
+      ZOrder		      -7
+      VariableName	      "uOut"
       MaxDataPoints	      "inf"
       SampleTime	      "-1"
       SaveFormat	      "Timeseries"
@@ -2327,14 +2340,21 @@ Model {
       SrcPort		      1
       Points		      [0, 10; 5, 0]
       Branch {
-	Points			[-5, 0; 0, 135]
-	DstBlock		"Zero-Order\nHold1"
-	DstPort			1
-      }
-      Branch {
 	Points			[10, 0; 0, -5]
 	DstBlock		"Demux1"
 	DstPort			1
+      }
+      Branch {
+	Points			[-5, 0; 0, 90]
+	Branch {
+	  Points		  [0, 45]
+	  DstBlock		  "Zero-Order\nHold1"
+	  DstPort		  1
+	}
+	Branch {
+	  DstBlock		  "To Workspace3"
+	  DstPort		  1
+	}
       }
     }
     Line {
@@ -2538,6 +2558,12 @@ Model {
       SrcPort		      1
       Points		      [15, 0; 0, 30]
       DstBlock		      "Mux2"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Pulse\nGenerator2"
+      SrcPort		      1
+      DstBlock		      "Manual Switch2"
       DstPort		      1
     }
   }
