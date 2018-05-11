@@ -114,12 +114,12 @@ public class Opcom {
               PhiPlotter.setXAxis(range, divTicks, divGrid);
               PhiPlotter.setTitle("Position and refrence (horizontal/Phi)");
               top.add(PhiPlotter);
-              u1Plotter.setYAxis(22, -11, 6, 6);
+              u1Plotter.setYAxis(24, -12, 6, 6);
               u1Plotter.setXAxis(range, divTicks, divGrid);
               u1Plotter.setTitle("u1");
               middle.add(u1Plotter);
               middle.addFixed(10);
-              u2Plotter.setYAxis(22, -11, 6, 6);
+              u2Plotter.setYAxis(24, -12, 6, 6);
               u2Plotter.setXAxis(range, divTicks, divGrid);
               u2Plotter.setTitle("u2");
               middle.add(u2Plotter);

@@ -1,3 +1,6 @@
+clear all
+load('sim_theta_ref.mat')
+load('tid.mat','tid')
 t=tid.data;
 theta=xOut.data(:,2);
 phi=xOut.data(:,1);
