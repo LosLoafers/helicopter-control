@@ -6,13 +6,15 @@ xchannel=RemoteChannel(()->Channel{Tuple}(2));
 uchannel=RemoteChannel(()->Channel{Int}(2));
   Su=ReentrantLock()
   Sx=ReentrantLock()
+  put!(xchannel,(0,0))
+  put!(uchannel,0)
 #  Su=Mutex()
 #  Sx=Mutex()
 kalman=@spawnat 1 begin
   #initialize
   x=[0.0 0.0];
-  put!(xchannel,(0,0))
-  put!(uchannel,0)
+  #put!(xchannel,(0,0))
+  #put!(uchannel,0)
 
 
   while we_should_run         #start loop
@@ -43,8 +45,8 @@ MPC=@spawnat 2 begin
   #initialize
   u=0
   x_hat=[0 0]
-  put!(xchannel,(0,0))
-  put!(uchannel,0)
+  #put!(xchannel,(0,0))
+  #put!(uchannel,0)
 
 
 
