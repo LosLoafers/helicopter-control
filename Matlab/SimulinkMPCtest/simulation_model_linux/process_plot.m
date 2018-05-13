@@ -38,7 +38,7 @@ ylabel('Voltage')
 
 %% real phi_ref
 clear all
-load('real_phi_ref.mat')
+load('real_phi_ref_2.mat')
 t=tid.data;
 theta=xOut.data(:,2);
 phi=xOut.data(:,1);
@@ -75,13 +75,13 @@ ylabel('Voltage')
 
 %% real theta constraint
 clear all
-load('real_theta_constraint.mat')
+load('real_theta_constraint_2.mat')
 t=tid.data;
 theta=xOut.data(:,2);
 phi=xOut.data(:,1);
 thetar=refOut.data(:,2);
 phir=refOut.data(:,1);
-constr=0.1*ones(size(t));
+constr=0.2*ones(size(t));
 subplot(2,1,2);
 subplot(2,1,1);
 plot(t,phi,'b')

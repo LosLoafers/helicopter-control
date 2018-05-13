@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.1"
+    ComputedModelVersion    "1.2"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -38,9 +38,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "tna13skn"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon May 07 15:10:45 2018"
-  RTWModifiedTimeStamp	  447603362
-  ModelVersionFormat	  "1.%<AutoIncrement:1>"
+  LastModifiedDate	  "Sun May 13 20:40:26 2018"
+  RTWModifiedTimeStamp	  448144594
+  ModelVersionFormat	  "1.%<AutoIncrement:2>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -78,6 +78,7 @@ Model {
     $ObjectID		    2
     $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
     model_		    "kalman"
+    signals_		    []
     overrideMode_	    [0.0]
     Array {
       Type		      "Cell"
@@ -964,7 +965,7 @@ Model {
   }
   System {
     Name		    "Real_proc_LinuxMPC"
-    Location		    [79, 186, 1227, 833]
+    Location		    [101, 92, 1249, 739]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -1832,7 +1833,7 @@ Model {
       Ports		      [0, 1]
       Position		      [210, 319, 240, 351]
       ZOrder		      -13
-      Amplitude		      "[0,pi/7]'"
+      Amplitude		      "[0,-pi/7]'"
       Period		      "40/Ts_control"
       PulseWidth	      "20/Ts_control"
       SampleTime	      "Ts_control"
@@ -1887,7 +1888,7 @@ Model {
       Position		      [440, 15, 470, 50]
       ZOrder		      -16
       Floating		      off
-      Location		      [258, 248, 1191, 812]
+      Location		      [250, 204, 1183, 768]
       Open		      off
       NumInputPorts	      "2"
       List {
@@ -1907,8 +1908,8 @@ Model {
       }
       ShowLegends	      off
       TimeRange		      "60"
-      YMin		      "-0.4~-1"
-      YMax		      "0.15~0.5"
+      YMin		      "-0.09~-0.5"
+      YMax		      "0.07~0.05"
       DataFormat	      "StructureWithTime"
       SampleTime	      "0"
     }
@@ -1986,7 +1987,7 @@ Model {
       Position		      [335, 146, 365, 179]
       ZOrder		      -16
       Floating		      off
-      Location		      [720, 134, 1197, 602]
+      Location		      [690, 110, 1167, 578]
       Open		      off
       NumInputPorts	      "2"
       List {
@@ -2005,8 +2006,8 @@ Model {
 	MarkerStyles		"none|none|none|none|none|none"
       }
       ShowLegends	      off
-      YMin		      "-0.4~-2"
-      YMax		      "0.35~1"
+      YMin		      "0.165~-0.6675"
+      YMax		      "0.21~-0.6375"
       SaveName		      "ScopeData3"
       DataFormat	      "StructureWithTime"
       SampleTime	      "0"
@@ -2019,7 +2020,7 @@ Model {
       Position		      [865, 389, 895, 421]
       ZOrder		      -16
       Floating		      off
-      Location		      [103, 654, 427, 893]
+      Location		      [93, 646, 417, 885]
       Open		      off
       NumInputPorts	      "1"
       List {
@@ -2038,7 +2039,7 @@ Model {
       }
       ShowLegends	      off
       YMin		      "-4"
-      YMax		      "3"
+      YMax		      "4"
       SaveName		      "ScopeData4"
       DataFormat	      "StructureWithTime"
       SampleTime	      "0"
