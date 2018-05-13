@@ -1,4 +1,4 @@
-clear all 
+%clear all 
 global Ts_control;
 global Asystem;
 global Bsystem;
@@ -14,8 +14,8 @@ global phi_min;
 global theta_min;
 global theta_max;
 Ts_control=0.05; % sample time
-Qglobal=diag([1 1 0.5 0.5 0 0 0 0]); %weight on states
-Rglobal=diag([1 1])*1;     %weight on control signal
+Qglobal=diag([1000 1000 500 500 0 0 0 0]); %weight on states
+Rglobal=diag([1 1])*100;     %weight on control signal
 umaxglobal=[1,0]'*10; %constraint on control
 uminglobal=[0,-1]'*10;
 phi_min=-pi;
@@ -48,9 +48,9 @@ global R;
 global Ts_kalman;
 Ts_kalman=0.01;
 h=Ts_kalman;
-Q=diag([0.1 0.1 0.1 0.1 0.1 0.1 10 10])*1e-4;
-%R = rand(2,2);
-R=[0.0679 0.0274;0.0274 0.4867]*1e-5; %variance
+Q=diag([0.1 0.1 0.1 0.1 0.1 0.1 10 10])*1e-6;
+R = rand(2,2);
+R=R*R'*1e-4; %variance
 R1=sqrtm(R); %std
 %R=eye(2)*1e-5;
 P_0=eye(8)*100;

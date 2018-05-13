@@ -2,14 +2,13 @@
 clear all
 load('sim_theta_ref.mat')
 
-t=linspace(0,100,10001)';
+t=linspace(0,100,1001)';
 tr=linspace(0,100,5001);
 theta=xOut.data(:,2);
 phi=xOut.data(:,1);
 thetar=refOut.data(:,2);
 phir=refOut.data(:,1);
-size(theta)
-size(t)
+size(phi)
 subplot(2,1,2);
 subplot(2,1,1);
 plot(t,phi,'b')
@@ -27,7 +26,7 @@ title('Theta')
 xlabel('Time (s)')
 ylabel('rad')
 
-%% loaddist
+%loaddist
 u1_err=xOut.data(:,7);
 u2_err=xOut.data(:,8);
 
@@ -42,8 +41,9 @@ ylabel('Voltage')
 %% plot sim phi_ref
 clear all
 load('sim_phi_ref.mat')
-t=linspace(0,100,10001)';
-tr=linspace(0,100,5001);
+load('tid.mat','tid')
+t=tid.data(1:end-4);
+tr=linspace(1,100,5001);
 theta=xOut.data(:,2);
 phi=xOut.data(:,1);
 thetar=refOut.data(:,2);
@@ -81,8 +81,9 @@ ylabel('Voltage')
 %% plot sim theta_constraint
 clear all
 load('sim_theta_constraint.mat')
-t=linspace(0,100,10001)';
-tr=linspace(0,100,5001);
+load('tid.mat','tid')
+t=tid.data(1:end-4);
+tr=linspace(1,100,5001);
 theta=xOut.data(:,2);
 phi=xOut.data(:,1);
 thetar=refOut.data(:,2);

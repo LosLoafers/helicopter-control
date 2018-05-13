@@ -14,8 +14,8 @@ Jf=    @(x2,x3,x4,x5,x6)reshape([0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,-(x3.*x
 F=eye(8)+Ts*Jf(x2,x3,x4,x5,x6); %Jacobian of the function f_k (the discrete f(x))
     
     if(X(2)<stop_angle&&X(4)<0)
-       F(8,8)=0.4; %the integrator state of theta needs to be kept down
-       F(7,7)=0.4;
+       F(8,8)=0; %the integrator state of theta needs to be kept down
+       F(7,7)=0;
        F(4,4)=0.1; %put the dthata state derivative to zero.
                        %not sure if this is necessary....   
         

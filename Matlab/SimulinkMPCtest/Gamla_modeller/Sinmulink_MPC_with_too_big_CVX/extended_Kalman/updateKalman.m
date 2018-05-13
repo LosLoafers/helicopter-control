@@ -22,7 +22,7 @@ C=[1 0 0 0 0 0 0 0;0 1 0 0 0 0 0 0];
 H=C;
 
 %kalman update
-P_new=F*P*F'+Ts_kalman^2*Q; %predicted covariance
+P_new=F*P*F'+Q; %predicted covariance
 ye=y-C*x_hat; %measurment residual
 S=H*P_new*H'+R;    %residual covariance
 K=P_new*H'/S;       %"optimal" kalman gain

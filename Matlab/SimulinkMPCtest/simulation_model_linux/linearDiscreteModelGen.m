@@ -1,4 +1,4 @@
-function [Adisc, Bdisc,linearizationPoint_x,linearizationPoint_u]=linearDescreteModelGen(x1,x2,Ts)
+function [Adisc, Bdisc,linearizationPoint_x,linearizationPoint_u]=linearDiscreteModelGen(x1,x2,x7,x8,Ts)
 %calculates a stationary point given x1=phi, x2=theta. And terurns this
 %point together with the linearized A and B discretized with sample time Ts
 %constants
@@ -69,5 +69,5 @@ for i=1:20 %taylor expanssion of the integral term int(expm(A*Ts)).
 end
 Bdisc=Aintegral*Ts*B;
 
-linearizationPoint_x=[x1,x2,0,0,x5,x6]';
-linearizationPoint_u=[x5*k1;x6*k2];
+linearizationPoint_x=[x1,x2,0,0,x5,x6,x7,x8]';
+linearizationPoint_u=[x5*k1-x7;x6*k2-x8];
