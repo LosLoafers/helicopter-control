@@ -21,7 +21,7 @@ uminglobal=[0,-1]'*10;
 phi_min=-170/180*pi;
 phi_max=170/180*pi;
 theta_min=-0.98;
-theta_max=0.2;
+theta_max=0.9;
 %theta_max=0;
 
 
