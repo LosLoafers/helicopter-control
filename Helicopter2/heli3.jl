@@ -9,7 +9,7 @@
 @everywhere x_hat=[0.0 -0.95 0.0 0.0 0.0 0.0 0.0 0.0]'
 @everywhere u=[0.0 0.0]' #control signal
 @everywhere u_temp=[0.0 0.0]'
-@everywhere const ampref = [0.0; -0.7]
+@everywhere const ampref = [0.7; 0.0]
 @everywhere const period = 15 #seconds
 @everywhere wsr = true
 @everywhere y=[0.0 0.0]' #measurement signal
@@ -29,7 +29,7 @@ put!(x_channel,x_hat)
 	client = connect("130.235.83.11",2018)
 	i=0
 	k=0
-	ref = [0.0 -0.7]'
+	ref = [0.0 0.0]'
 	while wsr
 		@periodically Ts_control begin
 			x_hat=fetch(x_channel)

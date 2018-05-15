@@ -1,0 +1,14 @@
+OM NÅGOT SKA ÄNDRAS I C-filerna,gör följande:
+
+rm *.o
+make
+gcc -shared -fPIC -o libcvx.so *.o
+
+
+
+OM EN HELT NY MAPP SKA GENERERAS FRÅN cvxgen.com:
+1.radera allt innehåll i main som ligger i testsolver.c,men behåll funktionen
+
+2.kopiera funktionen i mpcc.txt och lägg den innan main
+
+3.justera for-satser och funktions-arg beroende på vad som ändrats
